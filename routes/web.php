@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('/');
+Route::get('/', 'RouterController@home')->name('/');
 
 Auth::routes([
     'reset' => false,
@@ -21,21 +19,20 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::get('/store', function () {
-    return view('store');
-})->name('store');
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/logout', 'Auth\LoginController@logout')->name('get:logout');
 
-Route::get('/tracking', function () {
-    return view('tracking');
-})->name('tracking');
 
-Route::get('/item', function () {
-    return view('item');
-})->name('item');
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
+Route::get('/store', 'RouterController@store')->name('store');
+
+Route::get('/contact', 'RouterController@contact')->name('contact');
+
+Route::get('/tracking', 'RouterController@tracking')->name('tracking');
+
+Route::get('/item', 'RouterController@item')->name('item');
+
+Route::get('/cart', 'RouterController@cart')->name('cart');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -18,6 +18,7 @@ class Items extends Migration
             $table->string('title');
             $table->integer('price');
             $table->string('description');
+            $table->string('category');
             $table->timestamps();
         });
     }

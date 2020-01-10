@@ -140,25 +140,38 @@
           </div>
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
+          
+          
+          
+          
+          
+          
+          <!-- ---------------------- -->
           <section class="lattest-product-area pb-40 category-list">
             <div class="row">
+	            
+	            @foreach($items as $item)
+	            
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="img/product/product1.png" alt="">
+                    <a href="{{ route('item') }}"><img class="card-img" src="img/product/product1.png" alt=""></a>
                     <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
+                      <li><a href="{{ route('item') }}"><button><i class="ti-search"></i></button></a></li>
+                      <li><a href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i></button></a></li>
+                      <li><a href="{{ route('cart') }}"><button><i class="ti-heart"></i></button></a></li>
                     </ul>
                   </div>
                   <div class="card-body">
-                    <p>Accessories</p>
-                    <h4 class="card-product__title"><a href="#">Quartz Belt Watch</a></h4>
-                    <p class="card-product__price">$150.00</p>
+                    <p>{{$item->category}}</p>
+                    <h4 class="card-product__title"><a href="{{ route('item') }}">{{$item->title}}</a></h4>
+                    <p class="card-product__price">${{$item->price}}</p>
                   </div>
                 </div>
               </div>
+              
+              @endforeach
+              <!--
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
@@ -176,6 +189,7 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
@@ -295,7 +309,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </section>
           <!-- End Best Seller -->
         </div>
