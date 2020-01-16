@@ -31,8 +31,12 @@ Route::get('/tracking', 'RouterController@tracking')->name('tracking');
 
 Route::get('/item', 'RouterController@item')->name('item');
 
-Route::get('/cart', 'RouterController@cart')->name('cart');
+Route::get('/cart', 'CartController@cart')->name('cart');
+
+Route::get('/likes', 'RouterController@likes')->name('likes');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/cart/add/{id}', 'CartController@cartAdd')->name('cartAdd');

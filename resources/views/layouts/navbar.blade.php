@@ -24,10 +24,16 @@
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Account</a>
                             <ul class="dropdown-menu">
+	                            @guest
                                 <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Signup</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Signin</a></li>
+                                @endguest
                                 <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">Tracking</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
+                                @auth
+                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                            @endauth
                             </ul>
                         </li>
 
@@ -37,7 +43,7 @@
 
 
                     <ul class="nav-shop">
-                        <li class="nav-item"><button><i class="ti-search"></i></button></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}"><button><i class="ti-heart"></i></button></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button></a> </li>
                         <li class="nav-item"><a class="button button-header" href="{{ route('item') }}">Buy Now</a></li>
                     </ul>

@@ -22,12 +22,12 @@ class RouterController extends Controller
 	    return view('contact');
     }
     
-    public function cart () {
-	    return view('cart');
-    }
-    
     public function tracking () {
 	    return view('tracking');
+    }
+    
+    public function likes () {
+	    return view('likes');
     }
     
     public function item () {

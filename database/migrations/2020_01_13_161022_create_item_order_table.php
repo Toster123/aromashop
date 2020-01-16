@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Items extends Migration
+class CreateItemOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class Items extends Migration
      */
     public function up()
     {
-           Schema::create('items', function (Blueprint $table) {
+        Schema::create('item_order', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->integer('price');
-            $table->string('description');
-            $table->string('category');
+            $table->integer('order_id');
+            $table->integer('count')->default(1);
+            $table->integer('item_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class Items extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('item_order');
     }
 }

@@ -156,11 +156,15 @@
                 <div class="card text-center card-product">
                   <div class="card-product__img">
                     <a href="{{ route('item') }}"><img class="card-img" src="img/product/product1.png" alt=""></a>
+                    <form action="{{ route('cartAdd', $item->id) }}" method="POST">
+	                    @csrf
                     <ul class="card-product__imgOverlay">
-                      <li><a href="{{ route('item') }}"><button><i class="ti-search"></i></button></a></li>
-                      <li><a href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i></button></a></li>
-                      <li><a href="{{ route('cart') }}"><button><i class="ti-heart"></i></button></a></li>
+                      <li><button type="submit"><i class="ti-shopping-cart"></i></button></li>
+                      
+                      <li><a href="{{ route('likes') }}"><button type="button"><i class="ti-heart"></i></button></a></li>
                     </ul>
+                    @csrf
+                    </form>
                   </div>
                   <div class="card-body">
                     <p>{{$item->category}}</p>
