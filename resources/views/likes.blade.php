@@ -9,17 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Cart</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+	<link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/themify-icons/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nouislider/nouislider.min.css') }}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
   @endsection
@@ -47,9 +47,11 @@
   
 
   <!--================Cart Area =================-->
+  
   <section class="cart_area">
       <div class="container">
           <div class="cart_inner">
+	          
               <div class="table-responsive">
                   <table class="table">
                       <thead>
@@ -61,15 +63,19 @@
                           </tr>
                       </thead>
                       <tbody>
+	                      
+	@if(isset($items))
+	                      @auth
+	                      @foreach($items->items as $item)
                           <tr>
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <a href="{{ route('item') }}"><img src="img/cart/cart1.png" alt=""></a>
+                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
                                       </div>
                                       <div class="media-body">
 	                                      
-                                          <a href="{{ route('item') }}">Minimalistic shop for multipurpose use</a>
+                                          <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h4>
 	                                      
                                       </div>
                                   </div>
@@ -80,7 +86,21 @@
 	                          </td>
                               
                               <td>
-                                  <h5>$360.00</h5>
+                                  <h5>${{ $item->price }}</h5>
+                              </td>
+                              <td>
+
+ <div class="product_count">
+                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                                          class="input-text qty">
+                                          
+                                      <a href="{{ route('likesAdd', $item) }}"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
+                                      
+                                      
+                                      <a href="{{ route('likesRemove', $item) }}"><button class="reduced items-count"><i class="lnr lnr-chevron-down"></i></button></a>
+                                      
+                                  </div>
+
                               </td>
                               
                               
@@ -98,16 +118,74 @@
                                   <!-- <img src="img/delete.png" alt=""> -->
                               </td>
                           </tr>
-                          
-                          
+                          @endforeach
+                          @endauth
+                          @guest
+                          @foreach($items as $item)
+                          <tr>
+                              <td>
+                                  <div class="media">
+                                      <div class="d-flex">
+                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
+                                      </div>
+                                      <div class="media-body">
+	                                      
+                                          <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h4>
+	                                      
+                                      </div>
+                                  </div>
+                              </td>
+                              
+                              <td>
+	                              Comming soon
+	                          </td>
+                              
+                              <td>
+                                  <h5>${{ $item->price }}</h5>
+                              </td>
+                              <td>
+
+ <div class="product_count">
+                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                                          class="input-text qty">
+                                          
+                                      <a href="{{ route('likesAdd', $item) }}"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
+                                      
+                                      
+                                      <a href="{{ route('likesRemove', $item) }}"><button class="reduced items-count"><i class="lnr lnr-chevron-down"></i></button></a>
+                                      
+                                  </div>
+
+                              </td>
+                              
+                              
+                              <!-- <td>
+                                   <div class="product_count">
+                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                                          class="input-text qty">
+                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                          class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                          class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                  </div> 
+                              </td> -->
+                              <td>
+                                  <!-- <img src="img/delete.png" alt=""> -->
+                              </td>
+                          </tr>
+                          @endforeach
+                          @endguest
+                          @endif
                               
                           
                       </tbody>
                   </table>
               </div>
+              
           </div>
       </div>
   </section>
+  
   <!--================End Cart Area =================-->
 
 
@@ -118,14 +196,14 @@
 
 @section('end')
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+  <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ asset('vendors/mail-script.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 

@@ -79,6 +79,8 @@
                                   <h5>${{ $item->price }}</h5>
                               </td>
                               <td>
+	                              {{ $item->pivot->count }}
+	                              <!--
                                   <div class="product_count">
                                       <input type="text" name="qty" id="sst" maxlength="12" value="{{ $item->pivot->count }}" title="Quantity:"
                                           class="input-text qty">
@@ -89,6 +91,7 @@
                                       <a href="{{ route('cartRemove', $item) }}"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
                                       
                                   </div>
+                                  -->
                               </td>
                               <td>
                                   <h5>${{ $item->getPriceForCount() }}</h5>
@@ -97,6 +100,7 @@
                           
                           @endforeach
                           @endauth
+                          <!--
                           @guest
                           @foreach($items as $item)
                           <tr>
@@ -131,7 +135,7 @@
                           </tr>
                           
                           @endforeach
-                          @endguest
+                          @endguest -->
                           @endif
                           <tr class="bottom_button">
                               <td>
@@ -161,6 +165,7 @@
                               <td>
                                   <h5>Subtotal</h5>
                               </td>
+                              <!--
                               @auth
                               <td>
                                   <h5>${{$items->getFullPrice()}}</h5>
@@ -171,6 +176,7 @@
                                   <h5>$0</h5>
                               </td>
                               @endguest
+                              -->
                           </tr>
                           <tr class="shipping_area">
                               <td class="d-none d-md-block">

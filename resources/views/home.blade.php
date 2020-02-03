@@ -9,15 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Aroma Shop - Home</title>
-    <link rel="icon" href="img/Fevicon.png" type="image/png">
-    <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-    <link rel="stylsheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/themify-icons/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
+    <link rel="stylsheet" href="{{ asset('vendors/owl-carousel/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 
@@ -33,7 +33,7 @@
             <div class="row no-gutters align-items-center pt-60px">
                 <div class="col-5 d-none d-sm-block">
                     <div class="hero-banner__img">
-                        <img class="img-fluid" src="img/home/hero-banner.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/home/hero-banner.png') }}" alt="">
                     </div>
                 </div>
                 <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
@@ -53,21 +53,21 @@
     <section class="section-margin mt-0">
         <div class="owl-carousel owl-theme hero-carousel">
             <div class="hero-carousel__slide">
-                <img src="img/home/hero-slide1.png" alt="" class="img-fluid">
+                <img src="{{ asset('img/home/hero-slide1.png') }}" alt="" class="img-fluid">
                 <a href="#" class="hero-carousel__slideOverlay">
                     <h3>Wireless Headphone</h3>
                     <p>Accessories Item</p>
                 </a>
             </div>
             <div class="hero-carousel__slide">
-                <img src="img/home/hero-slide2.png" alt="" class="img-fluid">
+                <img src="{{ asset('img/home/hero-slide2.png') }}" alt="" class="img-fluid">
                 <a href="#" class="hero-carousel__slideOverlay">
                     <h3>Wireless Headphone</h3>
                     <p>Accessories Item</p>
                 </a>
             </div>
             <div class="hero-carousel__slide">
-                <img src="img/home/hero-slide3.png" alt="" class="img-fluid">
+                <img src="{{ asset('img/home/hero-slide3.png') }}" alt="" class="img-fluid">
                 <a href="#" class="hero-carousel__slideOverlay">
                     <h3>Wireless Headphone</h3>
                     <p>Accessories Item</p>
@@ -88,7 +88,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product1.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product1.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -105,7 +105,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product2.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product2.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -122,7 +122,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product3.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product3.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -139,7 +139,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product4.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product4.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -156,7 +156,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product5.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product5.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -173,7 +173,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product6.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product6.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -190,7 +190,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product7.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product7.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -207,7 +207,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
-                            <img class="card-img" src="img/product/product8.png" alt="">
+                            <img class="card-img" src="{{ asset('img/product/product8.png') }}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li><button><i class="ti-search"></i></button></li>
                                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -254,7 +254,7 @@
             <div class="owl-carousel owl-theme" id="bestSellerCarousel">
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product1.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product1.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -270,7 +270,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product2.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product2.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -286,7 +286,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product3.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product3.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -302,7 +302,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product4.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product4.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -318,7 +318,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product1.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product1.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -334,7 +334,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product2.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product2.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -350,7 +350,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product3.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product3.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -366,7 +366,7 @@
 
                 <div class="card text-center card-product">
                     <div class="card-product__img">
-                        <img class="img-fluid" src="img/product/product4.png" alt="">
+                        <img class="img-fluid" src="{{ asset('img/product/product4.png') }}" alt="">
                         <ul class="card-product__imgOverlay">
                             <li><button><i class="ti-search"></i></button></li>
                             <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -421,14 +421,14 @@
 
 @section('end')
 
-<script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="vendors/skrollr.min.js"></script>
-<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-<script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-<script src="vendors/jquery.ajaxchimp.min.js"></script>
-<script src="vendors/mail-script.js"></script>
-<script src="js/main.js"></script>
+<script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+<script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+<script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+<script src="{{ asset('vendors/mail-script.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 

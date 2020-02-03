@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Item;
 
-class RouterController extends Controller
+class IndexController extends Controller
 {
 	
     public function home () {
@@ -26,9 +26,7 @@ class RouterController extends Controller
 	    return view('tracking');
     }
     
-    public function likes () {
-	    return view('likes');
-    }
+
     
     public function item () {
 	    return view('item');

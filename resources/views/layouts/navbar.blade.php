@@ -3,7 +3,7 @@
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand logo_h" href="{{ route('/') }}"><img src="img/logo.png" alt=""></a>
+                <a class="navbar-brand logo_h" href="{{ route('/') }}"><img src="{{ asset('img/logo.png') }}" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
@@ -45,7 +45,7 @@
                     <ul class="nav-shop">
                         <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}"><button><i class="ti-heart"></i></button></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button></a> </li>
-                        <li class="nav-item"><a class="button button-header" href="{{ route('item') }}">Buy Now</a></li>
+                        <li class="nav-item"><a class="button button-header" href="">Buy Now</a></li>
                     </ul>
                 </div>
             </div>

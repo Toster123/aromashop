@@ -9,17 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Category</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+	<link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/themify-icons/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nouislider/nouislider.min.css') }}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
   @endsection
@@ -155,20 +155,25 @@
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <a href="{{ route('item') }}"><img class="card-img" src="img/product/product1.png" alt=""></a>
-                    <form action="{{ route('cartAdd', $item->id) }}" method="POST">
-	                    @csrf
+                    <a href="{{ route('item', $item->id) }}"><img class="card-img" src="{{ asset('img/product/product1.png') }}" alt=""></a>
+                   
                     <ul class="card-product__imgOverlay">
-                      <li><button type="submit"><i class="ti-shopping-cart"></i></button></li>
+	                     
+	                    
+                      <li><a href="{{ route('cartAdd', $item->id) }}"><button><i class="ti-shopping-cart"></i></button></a></li>
                       
-                      <li><a href="{{ route('likes') }}"><button type="button"><i class="ti-heart"></i></button></a></li>
+                       
+                    
+
+                      <li><a href="{{ route('likesAdd', $item) }}"><button><i class="ti-heart"></i></button></a></li>
+                      
                     </ul>
-                    @csrf
-                    </form>
+                    
+                    
                   </div>
                   <div class="card-body">
                     <p>{{$item->category}}</p>
-                    <h4 class="card-product__title"><a href="{{ route('item') }}">{{$item->title}}</a></h4>
+                    <h4 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{$item->title}}</a></h4>
                     <p class="card-product__price">${{$item->price}}</p>
                   </div>
                 </div>
@@ -333,21 +338,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-1.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-2.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-3.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -359,21 +364,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-4.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-5.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-6.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -385,21 +390,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-7.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-8.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-9.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -411,21 +416,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-1.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-2.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-3.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -470,15 +475,15 @@
 
 @section('end')
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/nouislider/nouislider.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+  <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('vendors/nouislider/nouislider.min.js') }}"></script>
+  <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ asset('vendors/mail-script.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 

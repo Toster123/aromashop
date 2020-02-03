@@ -9,16 +9,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Product Details</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+	<link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/themify-icons/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 	@endsection
@@ -51,7 +51,7 @@
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+							<img class="img-fluid" src="{{ asset('img/category/s-p1.jpg') }}" alt="">
 						</div>
 						<!-- <div class="single-prd-item">
 							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -63,27 +63,25 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>Faded SkyBlu Denim Jeans</h3>
-						<h2>$149.99</h2>
+						<h3>{{$item->title}}</h3>
+						<h2>${{$item->price}}</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							<li><a class="active" href="#"><span>Category</span> : {{$item->category}}</a></li>
+							<li><a href="#"><span>Availibility</span> : 
+								@if($item->availibility)
+								in Stock
+								@else
+								not available
+								@endif</a></li>
 						</ul>
-						<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-							something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-							during the winter.</p>
+						<p>{{$item->description}}</p>
 						<div class="product_count">
-              <label for="qty">Quantity:</label>
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<a class="button primary-btn" href="#">Add to Cart</a>               
+              
+							<a class="button primary-btn" href="{{ route('cartAdd', $item->id) }}">Add to Cart</a>               
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+							
+							<a class="icon_btn" href="{{ route('likesAdd', $item->id) }}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -114,35 +112,25 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-						and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-						Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-						London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-						officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-						job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-						showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-						child’s painting set for her birthday and it was with this that she produced her first significant work, a
-						half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-						named ‘Hangover’ by Beryl’s husband and</p>
-					<p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-						more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-						the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-						more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-						streamlined plan of cooking that is more efficient for one person creating less</p>
+					<p>{{$item->description}}</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					<div class="table-responsive">
 						<table class="table">
 							<tbody>
+								<!-- ----- -->
+								@foreach($item->specs as $spec)
 								<tr>
 									<td>
-										<h5>Width</h5>
+										<h5>{{$spec->spec_name}}</h5>
 									</td>
 									<td>
-										<h5>128mm</h5>
+										<h5>{{$spec->spec_value}}</h5>
 									</td>
 								</tr>
-								<tr>
+								@endforeach
+								<!-- ---- -->
+								<!-- <tr>
 									<td>
 										<h5>Height</h5>
 									</td>
@@ -197,7 +185,7 @@
 									<td>
 										<h5>60pcs</h5>
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -206,72 +194,57 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="comment_list">
+								@foreach($item->comments as $comment)
+								
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
+											<img src="{{ asset('img/product/review-1.png') }}" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<h4 id="commname">{{$comment->user->name}}</h4>
 											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
+											<a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); result.value = name; return false;">Reply</a>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
+									<p>{{$comment->message}}</p>
 								</div>
+								@foreach($comment->answers as $answer)
+								
 								<div class="review_item reply">
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
+											<img src="{{ asset('img/product/review-2.png') }}" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<h4>{{$answer->user->name}}</h4>
 											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
+											<a class="reply_btn" onclick="var name = '{{$answer->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); result.value = name; return false;">Reply</a>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
+									<p>{{$answer->content}}</p>
 								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+								@endforeach
+								@endforeach
+								
+								
 							</div>
 						</div>
+						
+						@auth
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Post a comment</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<form class="row contact_form" action="{{ route('commentAdd', $item->id) }}" method="post" id="contactForm" novalidate="novalidate">
+									@csrf
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
+											<input type="text" class="form-control" id="ansname" name="name" value="0" placeholder="Readonly input here…" readonly>
+											<input hidden="true" type="text" class="form-control" id="commentid" name="commentid" value="0" placeholder="Readonly input here…" readonly>
 										</div>
 									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-										</div>
-									</div>
+									
+									
 									<div class="col-md-12">
 										<div class="form-group">
 											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
@@ -283,6 +256,17 @@
 								</form>
 							</div>
 						</div>
+						@endauth
+						@guest
+						<div class="col-lg-6">
+							<div class="review_box">
+								<h4>Create an Account or Log in to post a comments</h4>
+								
+								<a class="button button--active button-review" href="login.html">Login Now</a><a class="button button--active button-review" href="login.html">Register Now</a>
+								
+							</div>
+						</div>
+						@endguest
 					</div>
 				</div>
 				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -300,90 +284,236 @@
 									<div class="rating_list">
 										<h3>Based on 3 Reviews</h3>
 										<ul class="list">
+											
 											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+													 
+													 
+													 
 											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+													 class="fa fa-star"></i><i class="ti-star"></i> 01</a></li>
+													 
+													 
+													 
 											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+													 class="ti-star" ></i><i class="ti-star"></i> 01</a></li>
+													 
+													 
+													 
+											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="ti-star"></i><i
+													 class="ti-star"></i><i class="ti-star"></i> 01</a></li>
+													 
+													 
+													 
+											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="ti-star"></i><i class="ti-star"></i><i
+													 class="ti-star"></i><i class="ti-star"></i> 01</a></li>
+													 
+													 
+													 
 										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="review_list">
+								@foreach($item->reviews as $review)
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
+											<img src="{{ asset('img/product/review-1.png') }}" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<h4>{{$review->user->name}}</h4>
+											@switch($review->rating)
+											@case(5)
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
+											@break
+											@case(4)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(3)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(2)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(1)
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@endswitch
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
+									<p>{{$review->content}}</p>
 								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+								@endforeach
+								
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
+								@auth
 								<h4>Add a Review</h4>
+								
 								<p>Your Rating:</p>
 								<ul class="list">
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
+									<li id="fa-st1"><a><i onclick="
+										
+										
+										document.getElementById('fa-st2').hidden = true;
+										document.getElementById('ti-st2').hidden = false;
+										
+										document.getElementById('fa-st3').hidden = true;
+										document.getElementById('ti-st3').hidden = false;
+										
+										document.getElementById('fa-st4').hidden = true;
+										document.getElementById('ti-st4').hidden = false;
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 1;
+										return false;
+											" class="fa fa-star"></i></a></li>
+									
+									<li id="fa-st2"><a onclick="
+										
+										document.getElementById('fa-st3').hidden = true;
+										document.getElementById('ti-st3').hidden = false;
+										
+										document.getElementById('fa-st4').hidden = true;
+										document.getElementById('ti-st4').hidden = false;
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 2;
+										return false;
+											"><i class="fa fa-star"></i></a></li>
+											
+									<li id="ti-st2" hidden="true"><a onclick="
+										
+										document.getElementById('fa-st2').hidden = false;
+										document.getElementById('ti-st2').hidden = true;
+										
+										document.getElementById('fa-st3').hidden = true;
+										document.getElementById('ti-st3').hidden = false;
+										
+										document.getElementById('fa-st4').hidden = true;
+										document.getElementById('ti-st4').hidden = false;
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 2;
+										return false;
+											"><i class="ti-star"></i></a></li>
+											
+									<li id="fa-st3"><a onclick="
+										
+										document.getElementById('fa-st4').hidden = true;
+										document.getElementById('ti-st4').hidden = false;
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 3;
+										return false;
+											"><i class="fa fa-star"></i></a></li>
+											
+									<li id="ti-st3" hidden="true"><a onclick="
+										
+										document.getElementById('fa-st2').hidden = false;
+										document.getElementById('ti-st2').hidden = true;
+										
+										document.getElementById('fa-st3').hidden = false;
+										document.getElementById('ti-st3').hidden = true;
+										
+										document.getElementById('fa-st4').hidden = true;
+										document.getElementById('ti-st4').hidden = false;
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 3;
+										return false;
+											"><i class="ti-star"></i></a></li>
+											
+									<li id="fa-st4"><a onclick="
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 4;
+										return false;
+											"><i class="fa fa-star"></i></a></li>
+											
+									<li id="ti-st4" hidden="true"><a onclick="
+										
+										document.getElementById('fa-st2').hidden = false;
+										document.getElementById('ti-st2').hidden = true;
+										
+										document.getElementById('fa-st3').hidden = false;
+										document.getElementById('ti-st3').hidden = true;
+										
+										document.getElementById('fa-st4').hidden = false;
+										document.getElementById('ti-st4').hidden = true;
+										
+										document.getElementById('fa-st5').hidden = true;
+										document.getElementById('ti-st5').hidden = false;
+										
+										document.getElementById('rating').value = 4;
+										return false;
+											"><i class="ti-star"></i></a></li>
+											
+									<li id="fa-st5"><a onclick="
+										
+										document.getElementById('rating').value = 5;
+										return false;
+											"><i class="fa fa-star"></i></a></li>
+											
+									<li id="ti-st5" hidden="true"><a onclick="
+										
+										document.getElementById('fa-st2').hidden = false;
+										document.getElementById('ti-st2').hidden = true;
+										
+										document.getElementById('fa-st3').hidden = false;
+										document.getElementById('ti-st3').hidden = true;
+										
+										document.getElementById('fa-st4').hidden = false;
+										document.getElementById('ti-st4').hidden = true;
+										
+										document.getElementById('fa-st5').hidden = false;
+										document.getElementById('ti-st5').hidden = true;
+										
+										document.getElementById('rating').value = 5;
+										return false;
+											"><i class="ti-star"></i></a></li>
+									
 								</ul>
 								<p>Outstanding</p>
-                <form action="#/" class="form-contact form-review mt-3">
+								
+                <form action="{{ route('reviewAdd', $item->id) }}" method="post" class="form-contact form-review mt-3">
+	                @csrf
+	                <!--
                   <div class="form-group">
                     <input class="form-control" name="name" type="text" placeholder="Enter your name" required>
                   </div>
@@ -393,13 +523,26 @@
                   <div class="form-group">
                     <input class="form-control" name="subject" type="text" placeholder="Enter Subject">
                   </div>
+                  -->
+                  <input hidden="true" id="rating" name="rating" value="5">
                   <div class="form-group">
-                    <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
+                    <textarea class="form-control different-control w-100" name="message" id="message" cols="30" rows="5" placeholder="Message"></textarea>
                   </div>
                   <div class="form-group text-center text-md-right mt-3">
                     <button type="submit" class="button button--active button-review">Submit Now</button>
                   </div>
                 </form>
+                @endauth
+                @guest
+                
+							
+								<h4>Create an Account or Log in to post a reviews</h4>
+								
+								<a class="button button--active button-review" href="login.html">Login Now</a><a class="button button--active button-review" href="login.html">Register Now</a>
+								
+							
+						
+                @endguest
 							</div>
 						</div>
 					</div>
@@ -420,21 +563,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-1.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-2.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-3.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -446,21 +589,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-4.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-5.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-6.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -472,21 +615,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-7.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-8.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-9.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -498,21 +641,21 @@
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-1.png') }}" alt=""></a>
               <div class="desc">
                   <a href="#" class="title">Gray Coffee Cup</a>
                   <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-2.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
               </div>
             </div>
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
+              <a href="#"><img src="{{ asset('img/product/product-sm-3.png') }}" alt=""></a>
               <div class="desc">
                 <a href="#" class="title">Gray Coffee Cup</a>
                 <div class="price">$170.00</div>
@@ -531,14 +674,14 @@
 
 @section('end')
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+  <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ asset('vendors/mail-script.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 

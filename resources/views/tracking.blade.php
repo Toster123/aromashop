@@ -9,17 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Order Tracking</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+	<link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/themify-icons/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nouislider/nouislider.min.css') }}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 	@endsection
@@ -46,6 +46,56 @@
   
   
   <!--================Tracking Box Area =================-->
+  @auth
+  <section class="cart_area">
+      <div class="container">
+          <div class="cart_inner">
+              <div class="table-responsive">
+                  <table class="table">
+	                  
+                      <thead>
+                          <tr>
+                              <th scope="col">Order Id</th>
+                              <th scope="col">Order Status</th>
+                              <th scope="col">Total</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+	                      @if(isset($orders))
+	                      @if(empty($orders))
+	                      @else
+	                      @foreach($orders as $order)
+                          <tr>
+                              <td>
+                                  <div class="media">
+                                      <div class="d-flex">
+                                          
+                                      </div>
+                                      <div class="media-body">
+                                          <a href="{{ route('order', $order->id) }}"><p>№{{ $order->id }}</p></a>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <h5>{{ 0 }}</h5>
+                              </td>
+                              
+                              <td>
+                                  <h5>${{ 0 }}</h5>
+                              </td>
+                          </tr>
+                          
+                          @endforeach
+                          @endif
+                          @endif
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </section>
+  @endauth
+  @guest
   <section class="tracking_box_area section-margin--small">
       <div class="container">
           <div class="tracking_box_inner">
@@ -65,6 +115,7 @@
           </div>
       </div>
   </section>
+  @endguest
   <!--================End Tracking Box Area =================-->
 
 
@@ -75,14 +126,14 @@
 
 @section('end')
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+  <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ asset('vendors/mail-script.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 
