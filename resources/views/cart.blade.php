@@ -68,10 +68,12 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <img src="img/cart/cart1.png" alt="">
+                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
                                       </div>
                                       <div class="media-body">
-                                          <p>{{ $item->title }}</p>
+	                                      
+                                          <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h5>
+	                                      
                                       </div>
                                   </div>
                               </td>
@@ -97,16 +99,18 @@
                           
                           @endforeach
                           @endauth
+                          
                           @guest
+                          @php $subtotal = 0 @endphp
                           @foreach($items as $item)
                           <tr>
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <img src="img/cart/cart1.png" alt="">
+                                          <a href="{{ route('item', $item->id) }}"><img src="img/cart/cart1.png" alt=""></a>
                                       </div>
                                       <div class="media-body">
-                                          <p>{{ $item->title }}</p>
+                                          <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h5>
                                       </div>
                                   </div>
                               </td>
@@ -126,7 +130,9 @@
                                   </div>
                               </td>
                               <td>
-                                  <h5>$720.00</h5>
+	                              @php $subtotal += $item->price * $counts[$item->id] @endphp
+                                  <h5>${{ $item->price * $counts[$item->id] }}</h5>
+                                  
                               </td>
                           </tr>
                           
@@ -168,7 +174,7 @@
                               @endauth
                               @guest
                               <td>
-                                  <h5>$0</h5>
+                                  <h5>${{$subtotal}}</h5>
                               </td>
                               @endguest
                           </tr>

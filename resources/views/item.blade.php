@@ -24,6 +24,7 @@
 	@endsection
 
 @section('content')
+
 	
 	<!-- ================ start banner area ================= -->	
 	<section class="blog-banner-area" id="blog">
@@ -77,7 +78,8 @@
 						<p>{{$item->description}}</p>
 						<div class="product_count">
               
-							<a class="button primary-btn" href="{{ route('cartAdd', $item->id) }}">Add to Cart</a>               
+							<a class="button primary-btn" href="{{ route('cartAdd', $item->id) }}">Add to Cart</a>    
+							<a class="button button-header" href="{{ route('cartAdd', $item->id) }}">Buy in 1 click</a>          
 						</div>
 						<div class="card_area d-flex align-items-center">
 							
@@ -204,7 +206,9 @@
 										<div class="media-body">
 											<h4 id="commname">{{$comment->user->name}}</h4>
 											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); result.value = name; return false;">Reply</a>
+											
+											<a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>
+											
 										</div>
 									</div>
 									<p>{{$comment->message}}</p>
@@ -219,7 +223,7 @@
 										<div class="media-body">
 											<h4>{{$answer->user->name}}</h4>
 											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" onclick="var name = '{{$answer->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); result.value = name; return false;">Reply</a>
+											<a class="reply_btn" onclick="var name = '{{$answer->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>
 										</div>
 									</div>
 									<p>{{$answer->content}}</p>
@@ -239,7 +243,13 @@
 									@csrf
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="ansname" name="name" value="0" placeholder="Readonly input here…" readonly>
+											<div hidden="true" id="answer_field" class="input-group">
+        <span class="input-group-btn">
+          <button onclick="document.getElementById('answer_field').hidden = true; document.getElementById('commentid').value = 0;" class="btn btn-default" type="button"><i class="ti-close"></i></button>
+        </span>
+        <input type="text" class="form-control" id="ansname" name="name" value="" placeholder="Readonly input here…" readonly>
+</div>
+											
 											<input hidden="true" type="text" class="form-control" id="commentid" name="commentid" value="0" placeholder="Readonly input here…" readonly>
 										</div>
 									</div>
@@ -276,13 +286,13 @@
 								<div class="col-6">
 									<div class="box_total">
 										<h5>Overall</h5>
-										<h4>4.0</h4>
-										<h6>(03 Reviews)</h6>
+										<h4>{{ number_format((float)$item->getOverall()[0], 1, '.', '') }}</h4>
+										<h6>({{number_format((float)$item->getOverall()[1], 0, '.', '')}} Reviews)</h6>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="rating_list">
-										<h3>Based on 3 Reviews</h3>
+										<h3>Based on {{number_format((float)$item->getOverall()[1], 0, '.', '')}} Reviews</h3>
 										<ul class="list">
 											
 											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
@@ -666,6 +676,209 @@
       </div>
 		</div>
 	</section>
+	
+	
+	
+	
+	
+            
+            
+            @if($reversed->count() <= 4)
+            <section class="section-margin calc-60px">
+        <div class="container">
+	         <div class="section-intro pb-60px">
+                <p>What you were looking for</p>
+                <h2>Browsing <span class="section-intro__style">History</span></h2>
+            </div>
+            <div class="row">
+            @foreach($reversed as $item)
+            
+			 
+           
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <a href="{{ route('item', $item->id) }}"><img class="card-img" src="{{ asset('img/product/product1.png') }}" alt=""></a>
+                   
+                            <ul class="card-product__imgOverlay">
+                                <li><a href="{{ route('cartAdd', $item->id) }}"><button><i class="ti-shopping-cart"></i></button></a></li>
+                      
+								<li><a href="{{ route('likesAdd', $item) }}"><button><i class="ti-heart"></i></button></a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>{{$item->category}}</p>
+                            <h4 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{$item->title}}</a></h4>
+                            <p class="card-product__price">${{$item->price}}</p>
+                        </div>
+                    </div>
+                </div>
+            
+            @endforeach
+            </div>
+            </section>
+            @else
+            <section class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>What you were looking for</p>
+                <h2>Browsing <span class="section-intro__style">History</span></h2>
+            </div>
+            <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+	            @foreach($reversed as $item)
+	            
+	            <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <a href="{{ route('item', $item->id) }}"><img class="card-img" src="{{ asset('img/product/product1.png') }}" alt=""></a>
+                   
+                            <ul class="card-product__imgOverlay">
+                                <li><a href="{{ route('cartAdd', $item->id) }}"><button><i class="ti-shopping-cart"></i></button></a></li>
+                      
+								<li><a href="{{ route('likesAdd', $item) }}"><button><i class="ti-heart"></i></button></a></li>
+                            </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>{{$item->category}}</p>
+                        <h4 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{$item->title}}</a></h4>
+                        <p class="card-product__price">${{$item->price}}</p>
+                    </div>
+                </div>
+	            @endforeach
+	            
+	            
+	            <!--
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product1.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Accessories</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Quartz Belt Watch</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product2.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Beauty</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Women Freshwash</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product3.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product4.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product1.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Accessories</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Quartz Belt Watch</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product2.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Beauty</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Women Freshwash</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product3.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="{{ asset('img/product/product4.png') }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">$150.00</p>
+                    </div>
+                    -->
+                </div>
+                @endif
+            </div>
+        </div>
+    </section>
 	<!--================ end related Product area =================-->  	
 
 

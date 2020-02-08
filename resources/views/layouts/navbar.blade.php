@@ -30,6 +30,7 @@
                                 @endguest
                                 <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">Tracking</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
                                 @auth
                                 <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>

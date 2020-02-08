@@ -19,7 +19,9 @@ class CartController extends Controller
 	    */
 	    
 	    if (Auth::check()) {
+		    
 		    $items = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail();
+		    
 		    return view('cart', compact('items'));	    
 	    } else {
 		    

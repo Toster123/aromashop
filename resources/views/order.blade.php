@@ -9,17 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Cart</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+	<link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/themify-icons/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/nouislider/nouislider.min.css') }}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
   @endsection
@@ -31,7 +31,7 @@
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>Shopping Cart</h1>
+					<h1>Order №{{$items->id}} Items</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -68,10 +68,12 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <img src="img/cart/cart1.png" alt="">
+                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
                                       </div>
                                       <div class="media-body">
-                                          <p>{{ $item->title }}</p>
+	                                      
+                                          <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h4>
+	                                      
                                       </div>
                                   </div>
                               </td>
@@ -165,7 +167,7 @@
                               <td>
                                   <h5>Subtotal</h5>
                               </td>
-                              <!--
+                              
                               @auth
                               <td>
                                   <h5>${{$items->getFullPrice()}}</h5>
@@ -176,30 +178,9 @@
                                   <h5>$0</h5>
                               </td>
                               @endguest
-                              -->
+                              
                           </tr>
-                          <tr class="shipping_area">
-                              <td class="d-none d-md-block">
-
-                              </td>
-                              <td>
-
-                              </td>
-                              <td>
-                                  <h5>Shipping</h5>
-                              </td>
-                              <td>
-                                  <div class="shipping_box">
-                                      <ul class="list">
-                                          <li><a href="#">Flat Rate: $5.00</a></li>
-                                          <li><a href="#">Free Shipping</a></li>
-                                          <li><a href="#">Flat Rate: $10.00</a></li>
-                                          <li class="active"><a href="#">Local Delivery: $2.00</a></li>
-                                      </ul>
-                                      
-                                  </div>
-                              </td>
-                          </tr>
+                          
                           <tr class="out_button_area">
                               <td class="d-none-l">
 
@@ -233,14 +214,14 @@
 
 @section('end')
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+  <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ asset('vendors/mail-script.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 

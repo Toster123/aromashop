@@ -82,24 +82,51 @@
                               </td>
                               
                               <td>
-	                              Comming soon
+	                              @switch(number_format((float)$item->getOverall()[0], 0, '.', ''))
+											@case(5)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											@break
+											@case(4)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(3)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(2)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(1)
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@endswitch
 	                          </td>
                               
                               <td>
                                   <h5>${{ $item->price }}</h5>
                               </td>
                               <td>
-
- <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                          class="input-text qty">
-                                          
-                                      <a href="{{ route('likesAdd', $item) }}"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
-                                      
-                                      
-                                      <a href="{{ route('likesRemove', $item) }}"><button class="reduced items-count"><i class="lnr lnr-chevron-down"></i></button></a>
-                                      
-                                  </div>
+	                              
+							  <a class="icon_btn" href="{{ route('likesRemove', $item->id) }}"><i class="ti-close"></i></a>
 
                               </td>
                               
@@ -137,25 +164,50 @@
                               </td>
                               
                               <td>
-	                              Comming soon
+	                              @switch(number_format((float)$item->getOverall()[0], 0, '.', ''))
+											@case(5)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											@break
+											@case(4)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(3)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(2)
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@case(1)
+											<i class="fa fa-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											<i class="ti-star"></i>
+											@break
+											@endswitch
 	                          </td>
                               
                               <td>
                                   <h5>${{ $item->price }}</h5>
                               </td>
                               <td>
-
- <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                          class="input-text qty">
-                                          
-                                      <a href="{{ route('likesAdd', $item) }}"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
-                                      
-                                      
-                                      <a href="{{ route('likesRemove', $item) }}"><button class="reduced items-count"><i class="lnr lnr-chevron-down"></i></button></a>
-                                      
-                                  </div>
-
+	                              <a class="icon_btn" href="{{ route('likesRemove', $item->id) }}"><i class="ti-close"></i></a>
                               </td>
                               
                               
