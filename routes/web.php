@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'IndexController@home')->name('/');
+Route::get('/', 'HomePageController@home')->name('/');
 
 Auth::routes([
     'reset' => false,
@@ -23,7 +23,7 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('get:logout');
 
 
 
-Route::get('/store', 'IndexController@store')->name('store');
+Route::get('/store', 'StoreController@store')->name('store');
 
 Route::get('/store/{id}', 'ItemPageController@itemPage')->name('item');
 
@@ -57,8 +57,30 @@ Route::get('/likes/remove/{id}', 'LikesController@likesRemove')->name('likesRemo
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomePageController@home')->name('home');
 
 Route::get('/cart/add/{id}', 'CartController@cartAdd')->name('cartAdd');
 
 Route::get('/cart/remove/{id}', 'CartController@cartRemove')->name('cartRemove');
+
+Route::get('/checkout', 'OrderController@checkout');
+Route::get('/confirmation', function () {
+	return view('confirmation');
+});
+
+
+//--------------AJAX-запросы---------------
+
+Route::get('/ajax', 'StoreController@ajaxItems')->name('ajax');
+
+Route::get('/search', 'StoreController@search');
+
+Route::get('/cart/add', 'CartController@cartAdd')->name('cartAdd');
+
+Route::get('/cart/removeWithoutCount', 'CartController@cartRemoveWithoutCount');
+
+Route::get('/cart/remove', 'CartController@cartRemove')->name('cartRemove');
+
+Route::get('/likes/add', 'LikesController@likesAdd')->name('likesAdd');
+
+Route::get('/likes/remove', 'LikesController@likesRemove')->name('likesRemove');

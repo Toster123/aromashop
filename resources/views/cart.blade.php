@@ -52,7 +52,7 @@
           <div class="cart_inner">
               <div class="table-responsive">
                   <table class="table">
-	                  @if(isset($items))
+	                  
                       <thead>
                           <tr>
                               <th scope="col">Product</th>
@@ -61,10 +61,12 @@
                               <th scope="col">Total</th>
                           </tr>
                       </thead>
+                      @if(isset($items))
                       <tbody>
+	                      
 	                      @auth
 	                      @foreach($items->items as $item)
-                          <tr>
+                          <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
@@ -82,13 +84,13 @@
                               </td>
                               <td>
                                   <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="{{ $item->pivot->count }}" title="Quantity:"
+                                      <input type="text" name="qty" id="{{$item->id}}count" maxlength="12" value="{{ $item->pivot->count }}" title="Quantity:"
                                           class="input-text qty">
                                           
-                                      <a href="{{ route('cartAdd', $item) }}"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
+                                      <a onclick="cartAdd({{$item->id}});"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
                                       
                                       
-                                      <a href="{{ route('cartRemove', $item) }}"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
+                                      <a onclick="cartRemove({{$item->id}});"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
                                       
                                   </div>
                               </td>
@@ -103,7 +105,7 @@
                           @guest
                           @php $subtotal = 0 @endphp
                           @foreach($items as $item)
-                          <tr>
+                          <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
@@ -119,13 +121,13 @@
                               </td>
                               <td>
                                   <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="{{ $counts[$item->id] }}" title="Quantity:"
+                                      <input type="text" name="qty" id="{{$item->id}}count" maxlength="12" value="{{ $counts[$item->id] }}" title="Quantity:"
                                           class="input-text qty">
                                           
-                                      <a href="{{ route('cartAdd', $item) }}"><button class="increase items-count" type="submit"><i class="lnr lnr-chevron-up"></i></button></a>
+                                      <a onclick="cartAdd({{$item->id}});"><button class="increase items-count" type="submit"><i class="lnr lnr-chevron-up"></i></button></a>
                                       
                                       
-                                      <a href="{{ route('cartRemove', $item) }}"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
+                                      <a onclick="cartRemove({{$item->id}});"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
                                       
                                   </div>
                               </td>
@@ -174,7 +176,12 @@
                               @endauth
                               @guest
                               <td>
-                                  <h5>${{$subtotal}}</h5>
+                                  <h5>$@if(isset($subtotal))
+	                                  {{$subtotal}}
+	                                  @else
+	                                  0
+	                                  @endif
+	                                  </h5>
                               </td>
                               @endguest
                           </tr>
@@ -232,7 +239,35 @@
 @endsection
 
 @section('end')
-
+  <script type="text/javascript">
+	  function cartAdd (itemId) {
+		  
+		  $.ajax({
+			  url: '{{action("CartController@cartAdd")}}' + '?itemId=' + itemId,
+			  type: 'GET',
+			  
+			  success: function (response) {
+				  
+				  location.reload();
+				  
+			  }
+		  })
+		  
+	  }
+	  
+	  function cartRemove (itemId) {
+		  
+		  $.ajax({
+			  url: '{{action("CartController@cartRemove")}}' + '?itemId=' + itemId,
+			  type: 'GET',
+			  
+			  success: function (response) {
+				  location.reload();
+			  }
+		  })
+		  
+	  }
+  </script>
   <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="vendors/skrollr.min.js"></script>

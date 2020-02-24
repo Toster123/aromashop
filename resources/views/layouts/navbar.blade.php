@@ -19,6 +19,7 @@
 
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
 
+@guest
 
                         <li class="nav-item submenu dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -32,12 +33,14 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
                                 @auth
-                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
+                                
                                 <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                             @endauth
                             </ul>
                         </li>
-
+						@endguest
+						
+						
                     </ul>
 
 
@@ -46,8 +49,33 @@
                     <ul class="nav-shop">
                         <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}"><button><i class="ti-heart"></i></button></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button></a> </li>
-                        <li class="nav-item"><a class="button button-header" href="">Buy Now</a></li>
                     </ul>
+                        
+                        
+                       @auth 
+                       
+                       
+                       <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+                        <li class="nav-item submenu dropdown">
+                        
+                            <img id="img_photo" src="{{ asset('img/product/product-sm-8.png') }}" alt="Image"
+                                 class="img-fluid rounded-circle avatar-nav img-thumbnail">
+                                 
+                                <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{Auth::user()->name}}
+                            	</a>
+                        <ul class="dropdown-menu">
+	                            
+                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">Tracking</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                            
+                            </ul>
+                    </li>
+                    </ul>
+                    @endauth
                 </div>
             </div>
         </nav>

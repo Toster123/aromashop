@@ -67,7 +67,7 @@
 	@if(isset($items))
 	                      @auth
 	                      @foreach($items->items as $item)
-                          <tr>
+                          <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
@@ -126,7 +126,7 @@
                               </td>
                               <td>
 	                              
-							  <a class="icon_btn" href="{{ route('likesRemove', $item->id) }}"><i class="ti-close"></i></a>
+							  <a class="icon_btn" onclick="likesRemove({{$item->id}});"><i class="ti-close"></i></a>
 
                               </td>
                               
@@ -149,7 +149,7 @@
                           @endauth
                           @guest
                           @foreach($items as $item)
-                          <tr>
+                          <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
@@ -207,7 +207,7 @@
                                   <h5>${{ $item->price }}</h5>
                               </td>
                               <td>
-	                              <a class="icon_btn" href="{{ route('likesRemove', $item->id) }}"><i class="ti-close"></i></a>
+	                              <a class="icon_btn" onclick="likesRemove({{$item->id}});"><i class="ti-close"></i></a>
                               </td>
                               
                               
@@ -247,7 +247,22 @@
 @endsection
 
 @section('end')
-
+  <script type="text/javascript">
+	  function likesRemove (itemId) {
+		  
+		  $.ajax({
+			  url: '{{action("LikesController@likesRemove")}}' + '?itemId=' + itemId,
+			  type: 'GET',
+			  
+			  success: function (response) {
+				  
+				  document.getElementById(itemId + "item").remove();
+				  
+			  }
+		  })
+		  
+	  }
+  </script>
   <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
   <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('vendors/skrollr.min.js') }}"></script>

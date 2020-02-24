@@ -1,3 +1,71 @@
+function removeURLParameter(url, parameter) {
+		  
+    //prefer to use l.search if you have a location/link object
+    var urlparts= url.split('?');   
+    if (urlparts.length>=2) {
+
+        var prefix= encodeURIComponent(parameter)+'=';
+        var pars= urlparts[1].split(/[&;]/g);
+
+        //reverse iteration as may be destructive
+        for (var i= pars.length; i-- > 0;) {    
+            //idiom for string.startsWith
+            if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+                pars.splice(i, 1);
+            }
+        }
+        
+        if(pars.length > 0) {
+            url= urlparts[0]+'?'+pars.join('&');
+        } else {
+            url= urlparts[0];
+        }
+
+        return url;
+    } else {
+        return url;
+    }
+    
+}
+	  
+	  
+	  
+	  
+	  
+	  function serializeGet(obj) {
+  var str = [];
+  for(var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
+
+
+
+
+
+function addGet(url, get) {
+
+  if (typeof(get) === 'object') {
+      get = serializeGet(get);
+  }
+
+  if (url.match(/\?/)) {
+      return url + '&' + get;
+  }
+
+  if (!url.match(/\.\w{3,4}$/) && url.substr(-1, 1) !== '/') {
+    url += '/';
+  }
+  
+  return url + '?' + get;
+}
+	  
+	  function checkSlashInPath () {if (window.location.pathname.charAt(window.location.pathname.length - 1) == '/') {return '';} else {return '/';}}
+	  
+	  
+
 $(function() {
   "use strict";
 
@@ -89,7 +157,7 @@ $(function() {
     noUiSlider.create(nonLinearSlider, {
         connect: true,
         behaviour: 'tap',
-        start: [ 500, 4000 ],
+        start: [ 500, 10000 ],
         range: {
             // Starting at 500, step the value by 500,
             // until 4000 is reached. From there, step by 1000.
@@ -109,7 +177,13 @@ $(function() {
     // Display the slider value and how far the handle moved
     // from the left edge of the slider.
     nonLinearSlider.noUiSlider.on('update', function ( values, handle, unencoded, isTap, positions ) {
-        nodes[handle].innerHTML = values[handle];
+	    nodes[handle].innerHTML = values[handle];
+	    history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'priceMin'), 'priceMin=' + nodes[0].innerHTML));
+	    history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'priceMax'), 'priceMax=' + nodes[1].innerHTML));
+	    ajaxQuery();
+	    
+        
+        
     });
   
   }

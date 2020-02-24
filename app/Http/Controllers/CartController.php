@@ -50,8 +50,8 @@ class CartController extends Controller
     
     }
     
-    public function cartAdd ($itemId) {
-	    
+    public function cartAdd (Request $request) {
+	    $itemId = $request->get('itemId');
 	  /*  $orderId = session('orderId');
 	    if (is_null($orderId)) {
 		    $order = Order::create();
@@ -67,14 +67,16 @@ class CartController extends Controller
 			    $pivotRow = $order->items()->where('item_id', $itemId)->first()->pivot;
 			    $pivotRow->count++;
 			    $pivotRow->update();
+			    return response()->json($pivotRow->count);
 		    } else {
 			    $order->items()->attach($itemId);
+			    return response()->json(1);
 		    }
 	    } else {
 	    $cartList = session('cartList');
 	    if (is_null($cartList)) {
 		    session(['cartList' => [$itemId]]);
-		    
+		    return response()->json(1);
 		    
 	    } else {
 		    /*if (isset($cartList[$itemId])) {
@@ -91,25 +93,30 @@ class CartController extends Controller
 		    session()->push('count', $itemId, 1);
 		    }*/
 		    session()->push('cartList', $itemId);
+		    $cartList = session('cartList');
+		    $counts = array_count_values($cartList);
+		    return response()->json($counts[$itemId]);
 	    }
 	    
 	    
 	    
 	    }
-	    return redirect('cart');
+	    return response()->json(true);
     }
     
-    public function cartRemove ($itemId) {
-	    
+    public function cartRemove (Request $request) {
+	    $itemId = $request->get('itemId');
 	     if (Auth::check()) {
 		   $order = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail();
 		   if ($order->items->contains($itemId)) {
 			    $pivotRow = $order->items()->where('item_id', $itemId)->first()->pivot;
 			    if ($pivotRow->count < 2) {
 				    $order->items()->detach($itemId);
+				    return response()->json(false);
 			    } else {
 				    $pivotRow->count--;
 					$pivotRow->update();
+					return response()->json($pivotRow->count);
 			    }
 			    
 			    
@@ -121,15 +128,47 @@ class CartController extends Controller
 	    if (is_null($cartList)) {
 		    return false;
 	    } else {
-		    dump(session()->all());
+		    
 $array = session()->pull('cartList',[]);
 unset($array[array_search($itemId, $array)]);
 session()->put('cartList',$array);
-		   dump(session()->all());
+		    $cartList = session('cartList');
+		    $counts = array_count_values($cartList);
+		    if (isset($counts[$itemId])) {
+			    return response()->json($counts[$itemId]);
+		    } else {
+			    return response()->json(false);
+		    }
 	    }
 	    }
-	    return redirect('cart');
 	    
+	    
+    }
+    
+    public function cartRemoveWithoutCount (Request $request) {
+	    $itemId = $request->get('itemId');
+	    if (Auth::check()) {
+		    $order = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail();
+		   if ($order->items->contains($itemId)) {
+			    $pivotRow = $order->items()->where('item_id', $itemId)->first()->pivot;
+			    } else {
+				    
+			    }
+			    $order->items()->detach($itemId);
+			    
+	    } else {
+		    $cartList = session('cartList');
+		    if (is_null($cartList)) {
+		    return false;
+	    } else {
+		    
+$array = session()->pull('cartList',[]);
+unset($array[array_search($itemId, $array)]);
+session()->put('cartList',$array);
+			
+	    }
+	    }
+	    return response()->json(true);
     }
     
 }

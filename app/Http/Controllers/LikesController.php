@@ -43,8 +43,8 @@ class LikesController extends Controller
 	    
     }
     
-    public function likesAdd ($itemId) {
-	    
+    public function likesAdd (Request $request) {
+	    $itemId = $request->get('itemId');
 	    if (Auth::check()) {
 		    $order = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail();
 		    
@@ -95,12 +95,12 @@ class LikesController extends Controller
 	    
 	    
 	    }
-	    return redirect('likes');
+	    return response()->json(true);
 	    
     }
     
-    public function likesRemove ($itemId) {
-	    	    
+    public function likesRemove (Request $request) {
+	    	    $itemId = $request->get('itemId');
 	     if (Auth::check()) {
 		   $order = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail();
 		   if ($order->items->contains($itemId)) {
@@ -121,7 +121,7 @@ session()->put('likesList', $likesList);
 		   dump(session()->all());
 	    }
 	    }
-	    return redirect('likes');
+	    return response()->json(true);
 	    
     }
 }

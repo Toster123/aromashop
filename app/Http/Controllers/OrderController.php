@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\Item;
 use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
@@ -29,5 +30,27 @@ class OrderController extends Controller
 	    }
 	    
     }
+    }
+    
+    function checkout () {
+	    
+	    
+	    if (Auth::check()) {
+		    $order = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
+	    } else {
+		    $cartList = session('cartList');
+		    $order = Item::get()->whereIn('id', $cartList);
+		    $counts = array_count_values($cartList);
+		    foreach($order as $item) {
+			    if (isset($counts[$item->id])) {
+				    $item->setAttribute('count', $counts[$item->id]);
+			    }
+		    }
+		    
+		    
+	    }
+	    
+	    
+	    return view('checkout', compact('order'));
     }
 }
