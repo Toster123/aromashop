@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/verify/';//в RegistersUsers я добавляю id пользователя!!!!!
 
     /**
      * Create a new controller instance.

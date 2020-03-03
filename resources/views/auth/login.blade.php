@@ -80,6 +80,17 @@
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-login w-100">Log In</button>
 								<a href="#">Forgot Password?</a>
+								@if (session('confirmation'))
+    <div class="alert alert-info" role="alert">
+        {!! session('confirmation') !!}
+    </div>
+@endif
+
+@if ($errors->has('confirmation') > 0 )
+    <div class="alert alert-danger" role="alert">
+        {!! $errors->first('confirmation') !!}
+    </div>
+@endif
 							</div>
 						</form>
 					</div>

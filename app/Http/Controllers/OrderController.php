@@ -37,20 +37,27 @@ class OrderController extends Controller
 	    
 	    if (Auth::check()) {
 		    $order = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
+		    return view('checkout', compact('order'));
 	    } else {
 		    $cartList = session('cartList');
 		    $order = Item::get()->whereIn('id', $cartList);
-		    $counts = array_count_values($cartList);
+		    if (!is_null($cartList)) {
+			    $counts = array_count_values($cartList);
 		    foreach($order as $item) {
 			    if (isset($counts[$item->id])) {
 				    $item->setAttribute('count', $counts[$item->id]);
 			    }
 		    }
+		    return view('checkout', compact('order'));
+		    } else {
+			    return view('checkout');
+		    }
+		    
 		    
 		    
 	    }
 	    
 	    
-	    return view('checkout', compact('order'));
+	    
     }
 }

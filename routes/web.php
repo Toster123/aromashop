@@ -55,7 +55,7 @@ Route::get('/likes/add/{id}', 'LikesController@likesAdd')->name('likesAdd');
 
 Route::get('/likes/remove/{id}', 'LikesController@likesRemove')->name('likesRemove');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomePageController@home')->name('home');
 
@@ -63,10 +63,15 @@ Route::get('/cart/add/{id}', 'CartController@cartAdd')->name('cartAdd');
 
 Route::get('/cart/remove/{id}', 'CartController@cartRemove')->name('cartRemove');
 
-Route::get('/checkout', 'OrderController@checkout');
+Route::get('/checkout', 'OrderController@checkout')->name('checkout');
 Route::get('/confirmation', function () {
 	return view('confirmation');
 });
+
+Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
+Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
+
+Route::get('/verify/{email}', 'OrderController@checkout')->name('verify');
 
 
 //--------------AJAX-запросы---------------

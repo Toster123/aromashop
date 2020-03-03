@@ -218,7 +218,7 @@
                               <td>
                                   <div class="checkout_btn_inner d-flex align-items-center">
                                       <a class="gray_btn" href="#">Continue Shopping</a>
-                                      <a class="primary-btn ml-2" href="#">Proceed to checkout</a>
+                                      <a class="primary-btn ml-2" href="{{route('checkout')}}">Proceed to checkout</a>
                                   </div>
                               </td>
                           </tr>

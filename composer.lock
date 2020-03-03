@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d4bf9ac7f4a933030e46a346ee2917",
+    "content-hash": "9b91f6011ab21ccc949389f71de14ffb",
     "packages": [
+        {
+            "name": "beyondcode/laravel-confirm-email",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-confirm-email.git",
+                "reference": "119c0fd815d85c408c8b70b610db36d42047323f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-confirm-email/zipball/119c0fd815d85c408c8b70b610db36d42047323f",
+                "reference": "119c0fd815d85c408c8b70b610db36d42047323f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "illuminate/database": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "illuminate/notifications": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0|^4.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\EmailConfirmation\\EmailConfirmationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\EmailConfirmation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add email verification to your Laravel projects.",
+            "homepage": "https://github.com/beyondcode/laravel-confirm-email",
+            "keywords": [
+                "beyondcode",
+                "laravel-confirm-email"
+            ],
+            "time": "2020-02-20T16:40:44+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "v0.1.1",

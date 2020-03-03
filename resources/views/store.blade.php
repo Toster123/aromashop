@@ -56,12 +56,12 @@
               <li class="common-filter">
                 <form action="#">
                   <ul>
-	                  <li class="filter-list"><input checked onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'category')); ajaxQuery();" class="pixel-radio" type="radio" id="allCategories" name="brand"><label for="men">All<span> (3600)</span></label></li>
-                    <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=clocks')); ajaxQuery();" value="ff" class="pixel-radio" type="radio" id="clocks" name="brand"><label for="clocks">Clocks<span> (3600)</span></label></li>
-                    <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=phones')); ajaxQuery();" class="pixel-radio" type="radio" id="phones" name="brand"><label for="Phones">Phones<span> (3600)</span></label></li>
-                    <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=laptops')); ajaxQuery();" class="pixel-radio" type="radio" id="laptops" value="ii" name="brand"><label for="laptops">Laptops<span> (3600)</span></label></li>
+	                  <li class="filter-list"><input checked onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', removeURLParameter(window.location.href, 'category')); ajaxQuery();" class="pixel-radio" type="radio" id="allCategories" name="brand"><label for="men">All<span> (3600)</span></label></li>
+                    <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=clocks')); ajaxQuery();" value="ff" class="pixel-radio" type="radio" id="clocks" name="brand"><label for="clocks">Clocks<span> (3600)</span></label></li>
+                    <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=phones')); ajaxQuery();" class="pixel-radio" type="radio" id="phones" name="brand"><label for="Phones">Phones<span> (3600)</span></label></li>
+                    <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=laptops')); ajaxQuery();" class="pixel-radio" type="radio" id="laptops" value="ii" name="brand"><label for="laptops">Laptops<span> (3600)</span></label></li>
                     
-                    <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=cars')); ajaxQuery();" class="pixel-radio" type="radio" name="brand"><label id="cars" for="Cars">Cars<span> (3600)</span></label></li>
+                    <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'category'), 'category=cars')); ajaxQuery();" class="pixel-radio" type="radio" name="brand"><label id="cars" for="Cars">Cars<span> (3600)</span></label></li>
                     
                   </ul>
                 </form>
@@ -74,10 +74,10 @@
               <div class="head">Brands</div>
               <form action="#">
                 <ul>
-	                <li class="filter-list"><input checked onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'brand')); ajaxQuery();" class="pixel-radio" type="radio" id="allBrands" name="brand"><label for="apple">All<span>(29)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'brand'), 'brand=apple')); ajaxQuery();" class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'brand'), 'brand=asus')); ajaxQuery();" class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'brand'), 'brand=sumsung')); ajaxQuery();" class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+	                <li class="filter-list"><input checked onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', removeURLParameter(window.location.href, 'brand')); ajaxQuery();" class="pixel-radio" type="radio" id="allBrands" name="brand"><label for="apple">All<span>(29)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'brand'), 'brand=apple')); ajaxQuery();" class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'brand'), 'brand=asus')); ajaxQuery();" class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'brand'), 'brand=sumsung')); ajaxQuery();" class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
                 </ul>
               </form>
             </div>
@@ -87,11 +87,11 @@
                 <ul>
 	                
 	                
-	                <li class="filter-list"><input checked onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'color')); ajaxQuery();" class="pixel-radio" type="radio" id="allColors" name="color"><label for="black">All<span>(29)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=black')); ajaxQuery();" class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=white')); ajaxQuery();" class="pixel-radio" type="radio" id="white" name="color"><label for="gold">White<span>(19)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=red')); ajaxQuery();" class="pixel-radio" type="radio" id="red" name="color"><label for="gold">Red<span>(19)</span></label></li>
-                  <li class="filter-list"><input onclick="history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=blue')); ajaxQuery();" class="pixel-radio" type="radio" id="blue" name="color"><label for="gold">Blue<span>(19)</span></label></li>
+	                <li class="filter-list"><input checked onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', removeURLParameter(window.location.href, 'color')); ajaxQuery();" class="pixel-radio" type="radio" id="allColors" name="color"><label for="black">All<span>(29)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=black')); ajaxQuery();" class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=white')); ajaxQuery();" class="pixel-radio" type="radio" id="white" name="color"><label for="gold">White<span>(19)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=red')); ajaxQuery();" class="pixel-radio" type="radio" id="red" name="color"><label for="gold">Red<span>(19)</span></label></li>
+                  <li class="filter-list"><input onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'color'), 'color=blue')); ajaxQuery();" class="pixel-radio" type="radio" id="blue" name="color"><label for="gold">Blue<span>(19)</span></label></li>
                   
                   
                 </ul>
@@ -118,7 +118,7 @@
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">Sort By:</div>
             <div class="sorting">
-              <select id="sort" onchange="sortBy();">
+              <select id="sort" onchange="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); sortBy();">
 	            <option id="sortPop" value="pop">Popylarity(by Default)</option>
                 <option id="sortPriceDescend" value="priceInDes">Price(in Descending order)</option>
                 <option id="sortPriceAscend" value="priceInAsc">Price(in Ascending order)</option>
@@ -138,7 +138,7 @@
               <div class="input-group filter-bar-search">
                 <input id="search" type="text" placeholder="Search">
                 <div class="input-group-append">
-                  <button type="button" onclick="if (document.getElementById('search').value !== '') {history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'term'), 'term=' + document.getElementById('search').value));} else {history.pushState({}, '', removeURLParameter(window.location.href, 'term'));} ajaxQuery();"><i class="ti-search"></i></button>
+                  <button type="button" onclick="history.pushState({}, '', removeURLParameter(window.location.href, 'page')); if (document.getElementById('search').value !== '') {history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'term'), 'term=' + document.getElementById('search').value));} else {history.pushState({}, '', removeURLParameter(window.location.href, 'term'));} ajaxQuery();"><i class="ti-search"></i></button>
                 </div>
               </div>
 	            
@@ -296,6 +296,7 @@
                 </div>
               </div>
             </div> -->
+            
           </section>
           <!-- End Best Seller -->
         </div>
@@ -598,11 +599,14 @@ function addGet(url, get) {
 	  
 	  function ajaxQuery () {
 		  $.ajax({
-			  url: '{{action("StoreController@ajaxItems")}}' + window.location.search,
-			  type: 'GET',
-			  
+			  url: '{{action("StoreController@store")}}' + window.location.search,
+			  type: 'get',
+			  datatype: 'html',
 			  success: function (items) {
+				  console.log(items);
 				  
+				  document.getElementById('items').innerHTML = items;
+				  /*
 				  $('#items').empty();
 				  items = JSON.parse(items);
 				  console.log(items);
@@ -630,7 +634,7 @@ function addGet(url, get) {
 				  
 				  
 					  
-				  
+				  */
 			  },
 			  error: function (msg) {
 				  console.log(msg);
@@ -666,7 +670,7 @@ function addGet(url, get) {
 	  
 	  
 	  
-	  
+	      
 	  
 	  
 	  
@@ -685,6 +689,9 @@ function addGet(url, get) {
 			 });
 		 } 
 	  });
+	  
+	  
+	  
   </script>
   <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
   <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>

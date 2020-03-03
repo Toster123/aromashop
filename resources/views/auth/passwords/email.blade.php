@@ -38,6 +38,11 @@
                                 </button>
                             </div>
                         </div>
+                        @if ($errors->has('confirmation') > 0 )
+    <div class="alert alert-danger" role="alert">
+        {!! $errors->first('confirmation') !!}
+    </div>
+@endif
                     </form>
                 </div>
             </div>

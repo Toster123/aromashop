@@ -29,7 +29,7 @@ class Item extends Model
 	    if (!is_null($this->pivot)) {
 		    return $this->pivot->count * $this->price;
 	    } else {
-		    dd('gg');
+		    
 		    return $this->price;
 	    }
 	    
