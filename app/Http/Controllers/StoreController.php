@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
+
     public function store (Request $request) {
+    	$items = Item::get();
 	    if ($request->ajax()) {
 		    if (!is_null($request->get('category'))) {
 		    $specs[] = ['category', '=', $request->get('category')];

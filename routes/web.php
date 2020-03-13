@@ -71,8 +71,11 @@ Route::get('/confirmation', function () {
 Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
-Route::get('/verify/{email}', 'OrderController@checkout')->name('verify');
 
+
+Route::get('/verify/{id}', 'Auth\VerificationController@send')->name('verifyPage');
+
+Route::get('/verify/token/{token}', 'Auth\VerificationController@verify')->name('verify');
 
 //--------------AJAX-запросы---------------
 

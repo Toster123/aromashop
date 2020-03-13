@@ -91,6 +91,7 @@
         {!! $errors->first('confirmation') !!}
     </div>
 @endif
+@include('auth.socialNetworkAuth')
 							</div>
 						</form>
 					</div>

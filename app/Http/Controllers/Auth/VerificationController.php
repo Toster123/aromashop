@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\User;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Mail\EmailVerify;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -32,10 +37,45 @@ class VerificationController extends Controller
      *
      * @return void
      */
+
+    public function send ($userId) {
+
+    $user = User::where('id', $userId)->where('verified_at', null)->firstOrFail();
+    if (!is_null($user)) {
+//Mail::to
+        if ($user->verified_at == null) {
+        $token = Str::random(20);
+        $name = $user->name;
+        $user->verify_token = $token;
+        $user->save();
+        Mail::to($user->email)->send(new EmailVerify($name, $token));
+    } else {
+
+    }
+
+    } else {
+
+    }
+    return view('auth.verifyPage');
+
+    }
+
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        
     }
+
+public function verify($token) {
+    $user = User::where('verify_token', $token)->firstOrFail();
+        if (!is_null($user)) {
+            $user->verify_token = null;
+            $user->verified_at = now();
+            $user->save();
+            Auth::login($user);
+        } else {
+
+        }
+return view('auth.verifySuccess');
+    }
+
 }
