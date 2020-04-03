@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Order;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
 class LoginController extends Controller
 {
     /*
@@ -44,7 +44,7 @@ class LoginController extends Controller
         if ($request->get('code')) {
             $access_token_href = 'https://oauth.vk.com/access_token?client_id='. $this->client_id .'&client_secret='. $this->client_secret .'&redirect_uri='. url('login') .'&scope=email&code='. $request->get('code');
             $access_token = json_decode(file_get_contents($access_token_href), true);
-            
+
             if ($access_token) {
 
                 $user_query = 'https://api.vk.com/method/users.get?user_ids='. $access_token['user_id'] .'&fields=first_name,photo_big&access_token='. $access_token['access_token'] .'&v=5.103';//ДОДЕЛАТЬ, добавть страну и тп
@@ -64,6 +64,17 @@ class LoginController extends Controller
                     $user->vk_id = $user_data['id'];
                     $user->verified_at = now();
                     $user->save();
+
+                        $order = new Order();
+                        $order->type = 1;
+                        $order->user_id = $user->id;
+                        $order->save();
+
+                        $likes = new Order();
+                        $likes->type = 2;
+                        $likes->user_id = $user->id;
+                        $likes->save();
+
                     Auth::login($user);
                     }
                 } else {
@@ -81,19 +92,29 @@ class LoginController extends Controller
                     $user->vk_id = $user_data['id'];
                     $user->verified_at = now();
                     $user->save();
+
+                        $order = new Order();
+                        $order->type = 1;
+                        $order->user_id = $user->id;
+                        $order->save();
+
+                        $likes = new Order();
+                        $likes->type = 2;
+                        $likes->user_id = $user->id;
+                        $likes->save();
+
                     Auth::login($user);
                 } else {
                     Auth::login($user);
                 }
             }
-                
+
             }
         }
     }
 
     public function showLoginForm()
     {
-        $vkAuthHref = 'https://oauth.vk.com/authorize?client_id='. $this->client_id .'&display=page&scope=email&redirect_uri='. url('login') .'&response_type=code';
-        return view('auth.login', compact('vkAuthHref'));
+        return view('auth.login');
     }
 }

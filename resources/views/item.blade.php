@@ -25,8 +25,8 @@
 
 @section('content')
 
-	
-	<!-- ================ start banner area ================= -->	
+
+	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="blog">
 		<div class="container h-100">
 			<div class="blog-banner">
@@ -52,7 +52,11 @@
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="{{ asset('img/category/s-p1.jpg') }}" alt="">
+							@if(is_null($item->img_href))
+							<img class="img-fluid" src="{{asset('storage/errors/item_no_img.png')}}" alt="">
+							@else
+							<img class="img-fluid" src="{{asset($item->img_href)}}" alt="">
+							@endif
 						</div>
 						<!-- <div class="single-prd-item">
 							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -68,7 +72,7 @@
 						<h2>${{$item->price}}</h2>
 						<ul class="list">
 							<li><a class="active" href="#"><span>Category</span> : {{$item->category}}</a></li>
-							<li><a href="#"><span>Availibility</span> : 
+							<li><a href="#"><span>Availibility</span> :
 								@if($item->availibility)
 								in Stock
 								@else
@@ -77,13 +81,25 @@
 						</ul>
 						<p>{{$item->description}}</p>
 						<div class="product_count">
-              
-							<a class="button primary-btn" href="{{ route('cartAdd', $item->id) }}">Add to Cart</a>    
-							<a class="button button-header" href="{{ route('cartAdd', $item->id) }}">Buy in 1 click</a>          
+                            @if($item->in_cart)
+                                <a class="button primary-btn cartRemoveButton{{$item->id}}" onclick="cartRemove({{$item->id}});">In Cart</a>
+                                <a hidden="true" class="button primary-btn cartAddButton{{$item->id}}" onclick="cartAdd({{$item->id}});">Add to Cart</a>
+                            @else
+                                <a class="button primary-btn cartAddButton{{$item->id}}" onclick="cartAdd({{$item->id}});">Add to Cart</a>
+                                <a hidden="true" class="button primary-btn cartRemoveButton{{$item->id}}" onclick="cartRemove({{$item->id}});">In Cart</a>
+                            @endif
+							<a class="button button-header" href="">Buy in 1 click</a>
 						</div>
 						<div class="card_area d-flex align-items-center">
-							
-							<a class="icon_btn" href="{{ route('likesAdd', $item->id) }}"><i class="lnr lnr lnr-heart"></i></a>
+
+
+                            @if($item->is_liked)
+                                <a class="likeRemoveButton{{$item->id}}" class="icon_btn" onclick="likesRemove({{$item->id}});"><i class="ti-close"></i></a>
+                                <a class="likeAddButton{{$item->id}}" class="icon_btn" hidden="true" onclick="likesAdd({{$item->id}});"><i class="lnr lnr lnr-heart"></i></a>
+                            @else
+                                <a class="likeAddButton{{$item->id}}" class="icon_btn" onclick="likesAdd({{$item->id}});"><i class="lnr lnr lnr-heart"></i></a>
+                                <a class="likeRemoveButton{{$item->id}}" class="icon_btn" hidden="true" onclick="likesRemove({{$item->id}});"><i class="ti-close"></i></a>
+                            @endif
 						</div>
 					</div>
 				</div>
@@ -197,7 +213,7 @@
 						<div class="col-lg-6">
 							<div class="comment_list">
 								@foreach($item->comments as $comment)
-								
+
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
@@ -206,15 +222,15 @@
 										<div class="media-body">
 											<h4 id="commname">{{$comment->user->name}}</h4>
 											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											
+
 											<a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>
-											
+
 										</div>
 									</div>
 									<p>{{$comment->message}}</p>
 								</div>
 								@foreach($comment->answers as $answer)
-								
+
 								<div class="review_item reply">
 									<div class="media">
 										<div class="d-flex">
@@ -230,11 +246,11 @@
 								</div>
 								@endforeach
 								@endforeach
-								
-								
+
+
 							</div>
 						</div>
-						
+
 						@auth
 						<div class="col-lg-6">
 							<div class="review_box">
@@ -249,12 +265,12 @@
         </span>
         <input type="text" class="form-control" id="ansname" name="name" value="" placeholder="Readonly input here…" readonly>
 </div>
-											
+
 											<input hidden="true" type="text" class="form-control" id="commentid" name="commentid" value="0" placeholder="Readonly input here…" readonly>
 										</div>
 									</div>
-									
-									
+
+
 									<div class="col-md-12">
 										<div class="form-group">
 											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
@@ -271,9 +287,9 @@
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Create an Account or Log in to post a comments</h4>
-								
+
 								<a class="button button--active button-review" href="login.html">Login Now</a><a class="button button--active button-review" href="login.html">Register Now</a>
-								
+
 							</div>
 						</div>
 						@endguest
@@ -294,32 +310,32 @@
 									<div class="rating_list">
 										<h3>Based on {{number_format((float)$item->getOverall()[1], 0, '.', '')}} Reviews</h3>
 										<ul class="list">
-											
+
 											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-													 
-													 
-													 
+
+
+
 											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
 													 class="fa fa-star"></i><i class="ti-star"></i> 01</a></li>
-													 
-													 
-													 
+
+
+
 											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
 													 class="ti-star" ></i><i class="ti-star"></i> 01</a></li>
-													 
-													 
-													 
+
+
+
 											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="ti-star"></i><i
 													 class="ti-star"></i><i class="ti-star"></i> 01</a></li>
-													 
-													 
-													 
+
+
+
 											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="ti-star"></i><i class="ti-star"></i><i
 													 class="ti-star"></i><i class="ti-star"></i> 01</a></li>
-													 
-													 
-													 
+
+
+
 										</ul>
 									</div>
 								</div>
@@ -375,152 +391,152 @@
 									<p>{{$review->content}}</p>
 								</div>
 								@endforeach
-								
+
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
 								@auth
 								<h4>Add a Review</h4>
-								
+
 								<p>Your Rating:</p>
 								<ul class="list">
 									<li id="fa-st1"><a><i onclick="
-										
-										
+
+
 										document.getElementById('fa-st2').hidden = true;
 										document.getElementById('ti-st2').hidden = false;
-										
+
 										document.getElementById('fa-st3').hidden = true;
 										document.getElementById('ti-st3').hidden = false;
-										
+
 										document.getElementById('fa-st4').hidden = true;
 										document.getElementById('ti-st4').hidden = false;
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 1;
 										return false;
 											" class="fa fa-star"></i></a></li>
-									
+
 									<li id="fa-st2"><a onclick="
-										
+
 										document.getElementById('fa-st3').hidden = true;
 										document.getElementById('ti-st3').hidden = false;
-										
+
 										document.getElementById('fa-st4').hidden = true;
 										document.getElementById('ti-st4').hidden = false;
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 2;
 										return false;
 											"><i class="fa fa-star"></i></a></li>
-											
+
 									<li id="ti-st2" hidden="true"><a onclick="
-										
+
 										document.getElementById('fa-st2').hidden = false;
 										document.getElementById('ti-st2').hidden = true;
-										
+
 										document.getElementById('fa-st3').hidden = true;
 										document.getElementById('ti-st3').hidden = false;
-										
+
 										document.getElementById('fa-st4').hidden = true;
 										document.getElementById('ti-st4').hidden = false;
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 2;
 										return false;
 											"><i class="ti-star"></i></a></li>
-											
+
 									<li id="fa-st3"><a onclick="
-										
+
 										document.getElementById('fa-st4').hidden = true;
 										document.getElementById('ti-st4').hidden = false;
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 3;
 										return false;
 											"><i class="fa fa-star"></i></a></li>
-											
+
 									<li id="ti-st3" hidden="true"><a onclick="
-										
+
 										document.getElementById('fa-st2').hidden = false;
 										document.getElementById('ti-st2').hidden = true;
-										
+
 										document.getElementById('fa-st3').hidden = false;
 										document.getElementById('ti-st3').hidden = true;
-										
+
 										document.getElementById('fa-st4').hidden = true;
 										document.getElementById('ti-st4').hidden = false;
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 3;
 										return false;
 											"><i class="ti-star"></i></a></li>
-											
+
 									<li id="fa-st4"><a onclick="
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 4;
 										return false;
 											"><i class="fa fa-star"></i></a></li>
-											
+
 									<li id="ti-st4" hidden="true"><a onclick="
-										
+
 										document.getElementById('fa-st2').hidden = false;
 										document.getElementById('ti-st2').hidden = true;
-										
+
 										document.getElementById('fa-st3').hidden = false;
 										document.getElementById('ti-st3').hidden = true;
-										
+
 										document.getElementById('fa-st4').hidden = false;
 										document.getElementById('ti-st4').hidden = true;
-										
+
 										document.getElementById('fa-st5').hidden = true;
 										document.getElementById('ti-st5').hidden = false;
-										
+
 										document.getElementById('rating').value = 4;
 										return false;
 											"><i class="ti-star"></i></a></li>
-											
+
 									<li id="fa-st5"><a onclick="
-										
+
 										document.getElementById('rating').value = 5;
 										return false;
 											"><i class="fa fa-star"></i></a></li>
-											
+
 									<li id="ti-st5" hidden="true"><a onclick="
-										
+
 										document.getElementById('fa-st2').hidden = false;
 										document.getElementById('ti-st2').hidden = true;
-										
+
 										document.getElementById('fa-st3').hidden = false;
 										document.getElementById('ti-st3').hidden = true;
-										
+
 										document.getElementById('fa-st4').hidden = false;
 										document.getElementById('ti-st4').hidden = true;
-										
+
 										document.getElementById('fa-st5').hidden = false;
 										document.getElementById('ti-st5').hidden = true;
-										
+
 										document.getElementById('rating').value = 5;
 										return false;
 											"><i class="ti-star"></i></a></li>
-									
+
 								</ul>
 								<p>Outstanding</p>
-								
+
                 <form action="{{ route('reviewAdd', $item->id) }}" method="post" class="form-contact form-review mt-3">
 	                @csrf
 	                <!--
@@ -544,14 +560,14 @@
                 </form>
                 @endauth
                 @guest
-                
-							
+
+
 								<h4>Create an Account or Log in to post a reviews</h4>
-								
+
 								<a class="button button--active button-review" href="login.html">Login Now</a><a class="button button--active button-review" href="login.html">Register Now</a>
-								
-							
-						
+
+
+
                 @endguest
 							</div>
 						</div>
@@ -562,7 +578,7 @@
 	</section>
 	<!--================End Product Description Area =================-->
 
-	<!--================ Start related Product area =================-->  
+	<!--================ Start related Product area =================-->
 	<section class="related-product-area section-margin--small mt-0">
 		<div class="container">
 			<div class="section-intro pb-60px">
@@ -675,27 +691,91 @@
         </div>
       </div>
 		</div>
-	
-	
+
+
             @include('layouts.browsinghistory')
-            
-            
-	<!--================ end related Product area =================-->  	
+
+
+    </section>
+	<!--================ end related Product area =================-->
 
 
 
 @endsection
 
 @section('end')
+    <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
+    <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
+    <script src="{{ asset('vendors/mail-script.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+  <script type="text/javascript">
+      function cartAdd (itemId) {
 
-  <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
-  <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
-  <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
-  <script src="{{ asset('vendors/nice-select/jquery.nice-select.min.js') }}"></script>
-  <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
-  <script src="{{ asset('vendors/mail-script.js') }}"></script>
-  <script src="{{ asset('js/main.js') }}"></script>
+          $.ajax({
+              url: '{{action("CartController@cartAdd")}}' + '?itemId=' + itemId,
+              type: 'GET',
+
+              success: function (response) {
+
+                  $(".cartAddButton" + itemId).attr('hidden', true);
+                  $(".cartRemoveButton" + itemId).attr('hidden', false);
+                    console.log(itemId);
+              }
+          })
+
+
+      }
+      function cartRemove (itemId) {
+
+          $.ajax({
+              url: '{{action("CartController@cartRemoveWithoutCount")}}' + '?itemId=' + itemId,
+              type: 'GET',
+
+              success: function (response) {
+
+                  $(".cartAddButton" + itemId).attr('hidden', false);
+                  $(".cartRemoveButton" + itemId).attr('hidden', true);
+
+              }
+          })
+
+      }
+      function likesAdd (itemId) {
+
+          $.ajax({
+              url: '{{action("LikesController@likesAdd")}}' + '?itemId=' + itemId,
+              type: 'GET',
+
+              success: function (response) {
+
+                  $(".likeAddButton" + itemId).attr('hidden', true);
+                  $(".likeRemoveButton" + itemId).attr('hidden', false);
+
+              }
+          })
+
+      }
+      function likesRemove (itemId) {
+
+          $.ajax({
+              url: '{{action("LikesController@likesRemove")}}' + '?itemId=' + itemId,
+              type: 'GET',
+
+              success: function (response) {
+
+                  $(".likeAddButton" + itemId).attr('hidden', false);
+                  $(".likeRemoveButton" + itemId).attr('hidden', true);
+
+              }
+          })
+
+      }
+  </script>
+
 </body>
 </html>
 

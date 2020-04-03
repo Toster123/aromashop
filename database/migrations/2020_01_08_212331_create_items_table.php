@@ -18,12 +18,13 @@ class CreateItemsTable extends Migration
             $table->string('title');
             $table->integer('price');
             $table->string('description');
-            $table->string('category');
-            $table->string('brand');
-            $table->string('color');
+            $table->integer('category_id')->nullable();
+            $table->integer('brand_id')->nullable();
+            $table->integer('color_id')->nullable();
             $table->boolean('availibility')->default(true);
             $table->integer('purchases');
             $table->integer('discount');
+            $table->string('img_href')->nullable();
             $table->timestamps();
         });
     }

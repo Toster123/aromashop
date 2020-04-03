@@ -26,7 +26,7 @@
 
 @section('content')
 
-	<!-- ================ start banner area ================= -->	
+	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
@@ -43,8 +43,8 @@
     </div>
 	</section>
 	<!-- ================ end banner area ================= -->
-  
-  
+
+
 
   <!--================Cart Area =================-->
   <section class="cart_area">
@@ -52,7 +52,7 @@
           <div class="cart_inner">
               <div class="table-responsive">
                   <table class="table">
-	                  
+
                       <thead>
                           <tr>
                               <th scope="col">Product</th>
@@ -63,19 +63,25 @@
                       </thead>
                       @if(isset($items))
                       <tbody>
-	                      
+
 	                      @auth
 	                      @foreach($items->items as $item)
                           <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
+                                          <a href="{{ route('item', $item->id) }}">
+                                            @if(is_null($item->img_href))
+                                            <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
+                                            @else
+                                            <img width="150" src="{{ asset($item->img_href) }}" alt="">
+                                            @endif
+                                          </a>
                                       </div>
                                       <div class="media-body">
-	                                      
+
                                           <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h5>
-	                                      
+
                                       </div>
                                   </div>
                               </td>
@@ -86,22 +92,22 @@
                                   <div class="product_count">
                                       <input type="text" name="qty" id="{{$item->id}}count" maxlength="12" value="{{ $item->pivot->count }}" title="Quantity:"
                                           class="input-text qty">
-                                          
+
                                       <a onclick="cartAdd({{$item->id}});"><button class="increase items-count"><i class="lnr lnr-chevron-up"></i></button></a>
-                                      
-                                      
+
+
                                       <a onclick="cartRemove({{$item->id}});"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
-                                      
+
                                   </div>
                               </td>
                               <td>
                                   <h5>${{ $item->getPriceForCount() }}</h5>
                               </td>
                           </tr>
-                          
+
                           @endforeach
                           @endauth
-                          
+
                           @guest
                           @php $subtotal = 0 @endphp
                           @foreach($items as $item)
@@ -109,7 +115,11 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <a href="{{ route('item', $item->id) }}"><img src="img/cart/cart1.png" alt=""></a>
+                                          <a href="{{ route('item', $item->id) }}">@if(is_null($item->img_href))
+                                                  <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
+                                              @else
+                                                  <img width="150" src="{{ asset($item->img_href) }}" alt="">
+                                              @endif</a>
                                       </div>
                                       <div class="media-body">
                                           <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h5>
@@ -123,21 +133,21 @@
                                   <div class="product_count">
                                       <input type="text" name="qty" id="{{$item->id}}count" maxlength="12" value="{{ $counts[$item->id] }}" title="Quantity:"
                                           class="input-text qty">
-                                          
+
                                       <a onclick="cartAdd({{$item->id}});"><button class="increase items-count" type="submit"><i class="lnr lnr-chevron-up"></i></button></a>
-                                      
-                                      
+
+
                                       <a onclick="cartRemove({{$item->id}});"><button class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button></a>
-                                      
+
                                   </div>
                               </td>
                               <td>
 	                              @php $subtotal += $item->price * $counts[$item->id] @endphp
                                   <h5>${{ $item->price * $counts[$item->id] }}</h5>
-                                  
+
                               </td>
                           </tr>
-                          
+
                           @endforeach
                           @endguest
                           @endif
@@ -203,7 +213,7 @@
                                           <li><a href="#">Flat Rate: $10.00</a></li>
                                           <li class="active"><a href="#">Local Delivery: $2.00</a></li>
                                       </ul>
-                                      
+
                                   </div>
                               </td>
                           </tr>
@@ -241,31 +251,31 @@
 @section('end')
   <script type="text/javascript">
 	  function cartAdd (itemId) {
-		  
+
 		  $.ajax({
 			  url: '{{action("CartController@cartAdd")}}' + '?itemId=' + itemId,
 			  type: 'GET',
-			  
+
 			  success: function (response) {
-				  
+
 				  location.reload();
-				  
+
 			  }
 		  })
-		  
+
 	  }
-	  
+
 	  function cartRemove (itemId) {
-		  
+
 		  $.ajax({
 			  url: '{{action("CartController@cartRemove")}}' + '?itemId=' + itemId,
 			  type: 'GET',
-			  
+
 			  success: function (response) {
 				  location.reload();
 			  }
 		  })
-		  
+
 	  }
   </script>
   <script src="vendors/jquery/jquery-3.2.1.min.js"></script>

@@ -21,15 +21,15 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	
+
 	@endsection
 
 @section('content')
 	<!--================ Start Header Menu Area =================-->
-	
+
 	<!--================ End Header Menu Area =================-->
-  
-  <!-- ================ start banner area ================= -->	
+
+  <!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
@@ -46,7 +46,7 @@
     </div>
 	</section>
 	<!-- ================ end banner area ================= -->
-  
+
   <!--================Login Box Area =================-->
 	<section class="login_box_area section-margin">
 		<div class="container">
@@ -85,7 +85,8 @@
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-register w-100">Register</button>
-							</div>
+                                @include('auth.socialNetworkAuth')
+                            </div>
 						</form>
 					</div>
 				</div>
@@ -96,7 +97,7 @@
 
 
 
-  <!--================ Start footer Area  =================-->	
+  <!--================ Start footer Area  =================-->
 	<footer>
 		<div class="footer-area footer-only">
 			<div class="container">
@@ -105,11 +106,11 @@
 						<div class="single-footer-widget tp_widgets ">
 							<h4 class="footer_title large_title">Our Mission</h4>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								So seed seed green that winged cattle in. Gathering thing made fly you're no
 								divided deep moved us lan Gathering thing us land years living.
 							</p>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved
 							</p>
 						</div>
 					</div>
@@ -149,7 +150,7 @@
 									Head Office
 								</p>
 								<p>123, Main Street, Your City</p>
-	
+
 								<p class="sm-head">
 									<span class="fa fa-phone"></span>
 									Phone Number
@@ -158,7 +159,7 @@
 									+123 456 7890 <br>
 									+123 456 7890
 								</p>
-	
+
 								<p class="sm-head">
 									<span class="fa fa-envelope"></span>
 									Email

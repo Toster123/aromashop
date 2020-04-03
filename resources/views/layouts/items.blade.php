@@ -2,19 +2,24 @@
                   <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-	                  <a href="{{route('item', $item->id)}}">
-                    <img class="card-img" src="img/product/product2.png" alt=""></a>
+                    <a href="{{route('item', $item->id)}}">
+                    @if(is_null($item->img_href))
+                    <img class="card-img" height="255" src="{{asset('storage/errors/item_no_img.png')}}" alt="">
+                    @else
+                    <img class="card-img" height="255" src="{{asset($item->img_href)}}" alt="">
+                    @endif
+                    </a>
                     <ul class="card-product__imgOverlay">
-	                    @if($item->in_cart)
-	                    <li id="{{$item->id}}cartRemoveButton"><a><button onclick="cartRemove({{$item->id}});"><i class="ti-check"></i></button></a></li><li id="{{$item->id}}cartAddButton" hidden="true"><a><button onclick="cartAdd({{$item->id}});"><i class="ti-shopping-cart"></i></button></a></li>
-	                    @else
-	                    <li id="{{$item->id}}cartRemoveButton" hidden="true"><a><button onclick="cartRemove({{$item->id}});"><i class="ti-check"></i></button></a></li><li id="{{$item->id}}cartAddButton"><a><button onclick="cartAdd({{$item->id}});"><i class="ti-shopping-cart"></i></button></a></li>
-	                    @endif
-	                    @if($item->is_liked)
-	                    <li id="{{$item->id}}likeRemoveButton"><a onclick="likesRemove({{$item->id}})"><button><i class="ti-close"></i></button></a></li><li id="{{$item->id}}likeAddButton" hidden="true"><a onclick="likesAdd({{$item->id}})"><button><i class="ti-heart"></i></button></a></li>
-	                    @else
-	                    <li id="{{$item->id}}likeRemoveButton" hidden="true"><a onclick="likesRemove({{$item->id}})"><button><i class="ti-close"></i></button></a></li><li id="{{$item->id}}likeAddButton"><a onclick="likesAdd({{$item->id}})"><button><i class="ti-heart"></i></button></a></li>
-	                    @endif
+                        @if($item->in_cart)
+                            <li class="cartRemoveButton{{$item->id}}"><a><button onclick="cartRemove({{$item->id}});"><i class="ti-check"></i></button></a></li><li class="cartAddButton{{$item->id}}" hidden="true"><a><button onclick="cartAdd({{$item->id}});"><i class="ti-shopping-cart"></i></button></a></li>
+                        @else
+                            <li class="cartRemoveButton{{$item->id}}" hidden="true"><a><button onclick="cartRemove({{$item->id}});"><i class="ti-check"></i></button></a></li><li class="cartAddButton{{$item->id}}"><a><button onclick="cartAdd({{$item->id}});"><i class="ti-shopping-cart"></i></button></a></li>
+                        @endif
+                        @if($item->is_liked)
+                            <li class="likeRemoveButton{{$item->id}}"><a onclick="likesRemove({{$item->id}})"><button><i class="ti-close"></i></button></a></li><li class="likeAddButton{{$item->id}}" hidden="true"><a onclick="likesAdd({{$item->id}})"><button><i class="ti-heart"></i></button></a></li>
+                        @else
+                            <li class="likeRemoveButton{{$item->id}}" hidden="true"><a onclick="likesRemove({{$item->id}})"><button><i class="ti-close"></i></button></a></li><li class="likeAddButton{{$item->id}}"><a onclick="likesAdd({{$item->id}})"><button><i class="ti-heart"></i></button></a></li>
+                        @endif
                     </ul>
                   </div>
                   <div class="card-body">
@@ -24,7 +29,7 @@
                   </div>
                 </div>
               </div>
-                
+
 @endforeach
 </div>
 

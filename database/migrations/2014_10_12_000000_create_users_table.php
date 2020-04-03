@@ -19,10 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('verified_at')->nullable();
             $table->string('verify_token')->nullable()->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('vk_id')->nullable();
+            $table->string('photo_href')->default('errors/user_no_photo.png');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('status')->default('user');
+            $table->integer('role_id')->default(1);
         });
     }
 

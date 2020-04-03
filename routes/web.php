@@ -27,13 +27,8 @@ Route::get('/store', 'StoreController@store')->name('store');
 
 Route::get('/store/{id}', 'ItemPageController@itemPage')->name('item');
 
-Route::get('/itt', function () {
-	return view('item');
-});
 
-Route::get('/user/?',function($name){
-  echo "Name: ".$name;
-});
+
 
 Route::post('/store/{id}/commentAdd', 'ItemPageController@commentAdd')->name('commentAdd');
 
@@ -68,27 +63,39 @@ Route::get('/confirmation', function () {
 	return view('confirmation');
 });
 
-Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
-Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
-
-
 
 Route::get('/verify/{id}', 'Auth\VerificationController@send')->name('verifyPage');
 
 Route::get('/verify/token/{token}', 'Auth\VerificationController@verify')->name('verify');
 
+
+Route::get('/users/{id}', 'UserController@userProfile')->name('profile');
+Route::post('/user/{id}/save', 'UserController@saveChanges')->name('saveUserChanges');
+Route::get('/users/{id}/chat', 'UserController@chat')->name('chat');
+
+Route::get('/admin/chat', 'UserController@adminChat')->name('adminChat');
 //--------------AJAX-запросы---------------
 
-Route::get('/ajax', 'StoreController@ajaxItems')->name('ajax');
+Route::get('/ajax', 'StoreController@ajaxItems');
 
 Route::get('/search', 'StoreController@search');
 
-Route::get('/cart/add', 'CartController@cartAdd')->name('cartAdd');
+Route::get('/cart/add', 'CartController@cartAdd');
 
 Route::get('/cart/removeWithoutCount', 'CartController@cartRemoveWithoutCount');
 
-Route::get('/cart/remove', 'CartController@cartRemove')->name('cartRemove');
+Route::get('/cart/remove', 'CartController@cartRemove');
 
-Route::get('/likes/add', 'LikesController@likesAdd')->name('likesAdd');
+Route::get('/likes/add', 'LikesController@likesAdd');
 
-Route::get('/likes/remove', 'LikesController@likesRemove')->name('likesRemove');
+Route::get('/likes/remove', 'LikesController@likesRemove');
+
+Route::get('/moreMessages', 'UserController@moreMessages');
+
+Route::get('/admin/moreMessages', 'UserController@moreMessagesForAdmin');
+
+Route::get('/admin/getDialog', 'UserController@getDialog');
+
+Route::post('/admin/chat/send', 'UserController@sendMessageFromAdmin');
+
+Route::post('/chat/send', 'UserController@sendMessageFromUser');

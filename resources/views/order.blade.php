@@ -68,7 +68,13 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
+                                          <a href="{{ route('item', $item->id) }}">
+                                            @if(is_null($item->img_href))
+                                            <img src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
+                                            @else
+                                            <img src="{{ asset($item->img_href) }}" alt="">
+                                            @endif
+                                          </a>
                                       </div>
                                       <div class="media-body">
 	                                      

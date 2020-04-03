@@ -6,22 +6,38 @@ use Illuminate\Http\Request;
 use App\Item;
 use App\User;
 use App\Order;
+use App\Category;
+use App\Brand;
+use App\Color;
 use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
 
     public function store (Request $request) {
-    	$items = Item::get();
+      $categories = Category::get();
+      $brands = Brand::get();
+      $colors = Color::get();
+      $reversed = [];
 	    if ($request->ajax()) {
+
 		    if (!is_null($request->get('category'))) {
-		    $specs[] = ['category', '=', $request->get('category')];
+          $category = Category::where('title', $request->get('category'))->firstOrFail();
+          if (!is_null($category)) {
+            $specs[] = ['category_id', '=', $category->id];
+          }
 	    }
 	    if (!is_null($request->get('brand'))) {
-		    $specs[] = ['brand', '=', $request->get('brand')];
-	    }
+        $brand = Brand::where('title', $request->get('brand'))->firstOrFail();
+        if (!is_null($brand)) {
+          $specs[] = ['brand_id', '=', $brand->id];
+        }
+		  }
 	    if (!is_null($request->get('color'))) {
-		    $specs[] = ['color', '=', $request->get('color')];
+        $color = Color::where('title', $request->get('color'))->firstOrFail();
+        if (!is_null($color)) {
+          $specs[] = ['color_id', '=', $color->id];
+        }
 	    }
 	    if (!is_null($request->get('priceMin'))) {
 		    $specs[] = ['price', '>=', (float)$request->get('priceMin')];
@@ -49,33 +65,33 @@ class StoreController extends Controller
 			    $collumn = 'purchases';
 				$orderBy = 'desc';
 		    }
-		    
+
 	    } else {
 		    $collumn = 'purchases';
 		    $orderBy = 'desc';
 	    }
-	    
-	    
+
+
 	    if (isset($specs)) {
 		    $items = Item::where($specs)->orderBy($collumn, $orderBy)->paginate(3)->withPath("?".http_build_query($request->except('page')));
 	    } else {
 		    $items = Item::orderBy($collumn, $orderBy)->paginate(3)->withPath("?".http_build_query($request->except('page')));
 	    }
-	    
+
 	    if (Auth::check()) {
-		    
+
 		    $cart = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
-		    
+
 		    $likes = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail()->items;
-		    
-		    	    
+
+
 	    } else {
 		    $cartList = session('cartList');
 		    $cart = Item::get()->whereIn('id', $cartList);
 		    $likesList = session('likesList');
 		    $likes = Item::get()->whereIn('id', $likesList);
 	    }
-		    	    
+
 	    foreach($items as $item) {
 		    if ($cart->contains($item->id)) {
 			    $item->setAttribute('in_cart', true);
@@ -88,41 +104,78 @@ class StoreController extends Controller
 			    $item->setAttribute('is_liked', false);
 		    }
 	    }
-	    
+
 	    return view('layouts.items', compact('items'));
-	    
-	    
-	    
+
+
+
 	    } else {
-	    if (Auth::check()) {
+	    /*if (Auth::check()) {
 		    $user = User::where('id', Auth::id())->firstOrFail();
-		    
+
 		    $reversed = $user->browsingHistory->reverse();
 		    } else {
-			    
-		    
+
+
 		    $browsingHistory = session('browsingHistory');
-		    
+
 		if (!is_null($browsingHistory)) {
 			$items = Item::find($browsingHistory)->sortBy(function ($item) use ($browsingHistory) {
     return array_search($item->getKey(), $browsingHistory);
 });
 $reversed = $items->reverse();
 		} else {
-			return view('store');
+			return view('store', compact('categories', 'brands', 'colors'));
 		}
-		   
-		
 
-	    
-	    }
-	    
-	    return view('store', compact('items', 'reversed'));
+
+
+
+	    }*/
+
+            if (Auth::check()) {
+                $user = User::where('id', Auth::id())->firstOrFail();
+                    $reversed = $user->browsingHistory->reverse();
+
+
+                $cart = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
+                $likes = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail()->items;
+
+                foreach($reversed as $i) {
+
+                    $i->setAttribute('in_cart', $cart->contains($i->id));
+
+                    $i->setAttribute('is_liked', $likes->contains($i->id));
+                }
+
+            } else {
+                $browsingHistory = session('browsingHistory');
+            if (!is_null($browsingHistory)) {
+                $items = Item::find($browsingHistory)->sortBy(function ($item) use ($browsingHistory) {
+                    return array_search($item->getKey(), $browsingHistory);
+                });
+                $reversed = $items->reverse();
+
+            }
+
+                $cartList = session('cartList');
+                $likesList = session('likesList');
+
+                foreach($reversed as $i) {
+
+                    $i->setAttribute('in_cart', !is_null($cartList) && in_array($i->id, $cartList));
+
+                    $i->setAttribute('is_liked', !is_null($likesList) && in_array($i->id, $likesList));
+                }
+
+            }
+
+	    return view('store', compact('reversed', 'categories', 'brands', 'colors'));
 	    }
     }
-    
+
     public function ajaxItems (Request $request) {
-	    
+
 	    if (!is_null($request->get('category'))) {
 		    $specs[] = ['category', '=', $request->get('category')];
 	    }
@@ -158,33 +211,33 @@ $reversed = $items->reverse();
 			    $collumn = 'purchases';
 				$orderBy = 'desc';
 		    }
-		    
+
 	    } else {
 		    $collumn = 'purchases';
 		    $orderBy = 'desc';
 	    }
-	    
-	    
+
+
 	    if (isset($specs)) {
 		    $items = Item::where($specs)->orderBy($collumn, $orderBy)->paginate(3);
 	    } else {
 		    $items = Item::orderBy($collumn, $orderBy)->paginate(3);
 	    }
-	    
+
 	    if (Auth::check()) {
-		    
+
 		    $cart = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
-		    
+
 		    $likes = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail()->items;
-		    
-		    	    
+
+
 	    } else {
 		    $cartList = session('cartList');
 		    $cart = Item::get()->whereIn('id', $cartList);
 		    $likesList = session('likesList');
 		    $likes = Item::get()->whereIn('id', $likesList);
 	    }
-		    	    
+
 	    foreach($items as $item) {
 		    if ($cart->contains($item->id)) {
 			    $item->setAttribute('in_cart', true);
@@ -197,10 +250,10 @@ $reversed = $items->reverse();
 			    $item->setAttribute('is_liked', false);
 		    }
 	    }
-	    
+
 	    return view('layouts.items', compact('items'));
-    
-    
+
+
 }
 
 public function search (Request $request) {
@@ -208,7 +261,7 @@ public function search (Request $request) {
 	$result = Item::select('title')
 	->where('title', 'LIKE', '%'.$search.'%')
 	->pluck('title');
-	
+
 	return response()->json($result);
 }
 }

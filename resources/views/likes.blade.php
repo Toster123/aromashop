@@ -26,7 +26,7 @@
 
 @section('content')
 
-	<!-- ================ start banner area ================= -->	
+	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
@@ -43,15 +43,15 @@
     </div>
 	</section>
 	<!-- ================ end banner area ================= -->
-  
-  
+
+
 
   <!--================Cart Area =================-->
-  
+
   <section class="cart_area">
       <div class="container">
           <div class="cart_inner">
-	          
+
               <div class="table-responsive">
                   <table class="table">
                       <thead>
@@ -63,7 +63,7 @@
                           </tr>
                       </thead>
                       <tbody>
-	                      
+
 	@if(isset($items))
 	                      @auth
 	                      @foreach($items->items as $item)
@@ -71,16 +71,22 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
+                                          <a href="{{ route('item', $item->id) }}">
+                                            @if(is_null($item->img_href))
+                                            <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
+                                            @else
+                                            <img width="150" src="{{ asset($item->img_href) }}" alt="">
+                                            @endif
+                                          </a>
                                       </div>
                                       <div class="media-body">
-	                                      
+
                                           <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h4>
-	                                      
+
                                       </div>
                                   </div>
                               </td>
-                              
+
                               <td>
 	                              @switch(number_format((float)$item->getOverall()[0], 0, '.', ''))
 											@case(5)
@@ -120,17 +126,17 @@
 											@break
 											@endswitch
 	                          </td>
-                              
+
                               <td>
                                   <h5>${{ $item->price }}</h5>
                               </td>
                               <td>
-	                              
+
 							  <a class="icon_btn" onclick="likesRemove({{$item->id}});"><i class="ti-close"></i></a>
 
                               </td>
-                              
-                              
+
+
                               <!-- <td>
                                    <div class="product_count">
                                       <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
@@ -139,7 +145,7 @@
                                           class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                       <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                                           class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                  </div> 
+                                  </div>
                               </td> -->
                               <td>
                                   <!-- <img src="img/delete.png" alt=""> -->
@@ -153,16 +159,22 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <a href="{{ route('item', $item->id) }}"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></a>
+                                          <a href="{{ route('item', $item->id) }}">
+                                              @if(is_null($item->img_href))
+                                                  <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
+                                              @else
+                                                  <img width="150" src="{{ asset($item->img_href) }}" alt="">
+                                              @endif
+                                          </a>
                                       </div>
                                       <div class="media-body">
-	                                      
+
                                           <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}</a></h4>
-	                                      
+
                                       </div>
                                   </div>
                               </td>
-                              
+
                               <td>
 	                              @switch(number_format((float)$item->getOverall()[0], 0, '.', ''))
 											@case(5)
@@ -202,15 +214,15 @@
 											@break
 											@endswitch
 	                          </td>
-                              
+
                               <td>
                                   <h5>${{ $item->price }}</h5>
                               </td>
                               <td>
 	                              <a class="icon_btn" onclick="likesRemove({{$item->id}});"><i class="ti-close"></i></a>
                               </td>
-                              
-                              
+
+
                               <!-- <td>
                                    <div class="product_count">
                                       <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
@@ -219,7 +231,7 @@
                                           class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                       <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                                           class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                  </div> 
+                                  </div>
                               </td> -->
                               <td>
                                   <!-- <img src="img/delete.png" alt=""> -->
@@ -228,16 +240,16 @@
                           @endforeach
                           @endguest
                           @endif
-                              
-                          
+
+
                       </tbody>
                   </table>
               </div>
-              
+
           </div>
       </div>
   </section>
-  
+
   <!--================End Cart Area =================-->
 
 
@@ -249,18 +261,18 @@
 @section('end')
   <script type="text/javascript">
 	  function likesRemove (itemId) {
-		  
+
 		  $.ajax({
 			  url: '{{action("LikesController@likesRemove")}}' + '?itemId=' + itemId,
 			  type: 'GET',
-			  
+
 			  success: function (response) {
-				  
+
 				  document.getElementById(itemId + "item").remove();
-				  
+
 			  }
 		  })
-		  
+
 	  }
   </script>
   <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
