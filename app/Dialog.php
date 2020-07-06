@@ -20,7 +20,20 @@ class Dialog extends Model
             if ($messages_count >= 1) {
                 $messages_count--;
             }
-            return $query->limit(1)->skip($messages_count)->first()->content;
+            $message = $query->limit(1)->skip($messages_count)->first();
+            $html = '';
+            if (!$message->images->isEmpty()) {
+                $count = 0;
+                foreach ($message->images as $image) {
+                    $count++;
+                }
+                if ($count > 1) {
+                    $html.=$count;
+                }
+                $html.='<i class="ti-image"></i>';
+            }
+            $html.=$message->content;
+            return $message;
         }
     }//.....доделать
 }

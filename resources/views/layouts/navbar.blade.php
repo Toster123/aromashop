@@ -12,14 +12,21 @@
                 </button>
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-                        <li class="nav-item @if(Route::currentRouteNamed('/')) active @endif"><a class="nav-link" href="{{ route('/') }}">Home</a></li>
+                        <li class="nav-item @if(Route::currentRouteNamed('/')) active @endif"><a class="nav-link" href="{{ route('/') }}">{{__('links.home')}}</a></li>
 
 
-                        <li class="nav-item @if(Route::currentRouteNamed('store')) active @endif"><a class="nav-link" href="{{ route('store') }}">Store</a></li>
+                        <li class="nav-item submenu dropdown @if(Route::currentRouteNamed('store')) active @endif">
+                            <a class="nav-link" href="{{ route('store') }}">{{__('links.store')}}</a>
+                            <ul class="dropdown-menu">
+                                @foreach($categories as $category)
+                                <li class="nav-item"><a class="nav-link" href="{{route('store') . '?category=' . $category->title}}">{{$category->title}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
 
-                        <li class="nav-item @if(Route::currentRouteNamed('contact')) active @endif"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
+                        <li class="nav-item @if(Route::currentRouteNamed('contact')) active @endif"><a class="nav-link" href="{{ route('contact') }}">{{__('links.contacts')}}</a></li>
 
-@guest
+                            @guest
 
                         <li class="nav-item submenu dropdown @if(Route::currentRouteNamed('register') ||
                         Route::currentRouteNamed('login') ||
@@ -27,19 +34,24 @@
                         Route::currentRouteNamed('cart') ||
                         Route::currentRouteNamed('likes')) active @endif">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">Account</a>
+                               aria-expanded="false">{{__('links.account')}}</a>
                             <ul class="dropdown-menu">
-	                            @guest
-                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Signup</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Signin</a></li>
-                                @endguest
-                                <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">Tracking</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{__('links.register')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{__('links.login')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">{{__('links.cart')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">{{__('links.likes')}}</a></li>
                             </ul>
                         </li>
 						@endguest
 
+                        <li class="nav-item submenu dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">{{Config::get('app.locale')}}</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="{{ route('setlocale', 'ru') }}">Ru</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('setlocale', 'en') }}">En</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
 
@@ -49,6 +61,9 @@
                     <ul class="nav-shop">
                         <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}"><button><i class="ti-heart"></i></button></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i><span id="cartCount" class="nav-shop__circle">3</span></button></a></li>
+                        @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ route('chat', Auth::id()) }}"><button><i class="ti-comments"></i><span id="cartCount" class="nav-shop__circle">3</span></button></a></li>
+                            @endauth
                     </ul>
 
 
@@ -58,28 +73,22 @@
                        <ul class="nav nav-shop navbar-nav menu_nav ml-auto mr-auto">
                         <li class="nav-item submenu dropdown">
 
-                                @if(Auth::user()->photo_href)
                                     <img id="img_photo" width="80" src="{{Storage::url(Auth::user()->photo_href)}}" alt="Image"
                                          class="img-fluid rounded-circle avatar-nav img-thumbnail">
-                                    @else
-                                    <img id="img_photo" width="80" src="{{ asset('storage/errors/user_no_photo.png') }}" alt="Image"
-                                         class="img-fluid rounded-circle avatar-nav img-thumbnail">
-                                    @endif
 
                                 <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{Auth::user()->name}}
                             	</a>
                         <ul class="dropdown-menu">
 
-                                <li class="nav-item"><a class="nav-link" href="{{ route('profile', Auth::id()) }}">Profile</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">Tracking</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">Likes</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('profile', Auth::id()) }}">{{__('links.profile')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">{{__('links.tracking')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">{{__('links.cart')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">{{__('links.likes')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">{{__('links.logout')}}</a></li>
 
                             </ul>
                     </li>
-                           <li class="nav-item"><a class="nav-link" href="{{ route('chat', Auth::id()) }}"><button><i class="ti-comments"></i><span id="cartCount" class="nav-shop__circle">3</span></button></a></li>
                     </ul>
                     @endauth
                 </div>

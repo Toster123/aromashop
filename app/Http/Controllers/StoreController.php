@@ -15,61 +15,57 @@ class StoreController extends Controller
 {
 
     public function store (Request $request) {
-      $categories = Category::get();
-      $brands = Brand::get();
-      $colors = Color::get();
       $reversed = [];
 	    if ($request->ajax()) {
-
-		    if (!is_null($request->get('category'))) {
-          $category = Category::where('title', $request->get('category'))->firstOrFail();
+	        $specs = [];
+		    if ($request->category) {
+          $category = Category::where('title', $request->category)->firstOrFail();
           if (!is_null($category)) {
             $specs[] = ['category_id', '=', $category->id];
           }
 	    }
-	    if (!is_null($request->get('brand'))) {
-        $brand = Brand::where('title', $request->get('brand'))->firstOrFail();
+	    if ($request->brand) {
+        $brand = Brand::where('title', $request->brand)->firstOrFail();
         if (!is_null($brand)) {
           $specs[] = ['brand_id', '=', $brand->id];
-        }
-		  }
-	    if (!is_null($request->get('color'))) {
-        $color = Color::where('title', $request->get('color'))->firstOrFail();
+          }
+		}
+	    if ($request->color) {
+        $color = Color::where('title', $request->color)->firstOrFail();
         if (!is_null($color)) {
           $specs[] = ['color_id', '=', $color->id];
-        }
+          }
 	    }
-	    if (!is_null($request->get('priceMin'))) {
-		    $specs[] = ['price', '>=', (float)$request->get('priceMin')];
+	    if ($request->priceMin) {
+		    $specs[] = ['price', '>=', (float)$request->priceMin];
 	    }
-	    if (!is_null($request->get('priceMax'))) {
-		    $specs[] = ['price', '<=', (float)$request->get('priceMax')];
+	    if ($request->priceMax) {
+		    $specs[] = ['price', '<=', (float)$request->priceMax];
 	    }
-	    if (!is_null($request->get('term'))) {
-		    $specs[] = ['title', 'LIKE', '%'.$request->get('term').'%'];
+	    if ($request->term) {
+		    $specs[] = ['title', 'LIKE', '%'.$request->term.'%'];
 	    }
-	    if (!is_null($request->get('sortby'))) {
-		    if ($request->get('sortby') == 'priceInDes') {
-			    $collumn = 'price';
-				$orderBy = 'desc';
-		    }
-		    if ($request->get('sortby') == 'priceInAsc') {
-			    $collumn = 'price';
-				$orderBy = 'asc';
-		    }
-		    if ($request->get('sortby') == 'raiting') {
-			    $collumn = 'purchases';
-				$orderBy = 'desc';
-		    }
-		    if ($request->get('sortby') == 'reviews') {
-			    $collumn = 'purchases';
-				$orderBy = 'desc';
-		    }
-
-	    } else {
-		    $collumn = 'purchases';
-		    $orderBy = 'desc';
-	    }
+	        switch ($request->sortby) {
+                case 'priceInDes':
+                    $collumn = 'price';
+                    $orderBy = 'desc';
+                    break;
+                case 'priceInAsc':
+                    $collumn = 'price';
+                    $orderBy = 'asc';
+                    break;
+                case 'raiting':
+                    $collumn = 'purchases';
+                    $orderBy = 'desc';
+                    break;
+                case 'reviews':
+                    $collumn = 'purchases';
+                    $orderBy = 'desc';
+                    break;
+                default:
+                    $collumn = 'purchases';
+                    $orderBy = 'desc';
+            }
 
 
 	    if (isset($specs)) {
@@ -80,36 +76,29 @@ class StoreController extends Controller
 
 	    if (Auth::check()) {
 
-		    $cart = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
+		    $cart = Auth::user()->cart->items;
 
-		    $likes = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail()->items;
+		    $likes = Auth::user()->likes->items;
 
 
 	    } else {
-		    $cartList = session('cartList');
-		    $cart = Item::get()->whereIn('id', $cartList);
-		    $likesList = session('likesList');
-		    $likes = Item::get()->whereIn('id', $likesList);
+		    $cart = Item::get()->whereIn('id', session('cartList'));
+		    $likes = Item::get()->whereIn('id', session('likesList'));
 	    }
 
 	    foreach($items as $item) {
-		    if ($cart->contains($item->id)) {
-			    $item->setAttribute('in_cart', true);
-		    } else {
-			    $item->setAttribute('in_cart', false);
-		    }
-		    if ($likes->contains($item->id)) {
-			    $item->setAttribute('is_liked', true);
-		    } else {
-			    $item->setAttribute('is_liked', false);
-		    }
+			    $item->setAttribute('in_cart', $cart->contains($item->id));
+			    $item->setAttribute('is_liked', $likes->contains($item->id));
 	    }
 
-	    return view('layouts.items', compact('items'));
+	    return view('layouts.store.items', compact('items'));
 
 
 
 	    } else {
+            $categories = Category::get();
+            $brands = Brand::get();
+            $colors = Color::get();
 	    /*if (Auth::check()) {
 		    $user = User::where('id', Auth::id())->firstOrFail();
 
@@ -133,128 +122,11 @@ $reversed = $items->reverse();
 
 	    }*/
 
-            if (Auth::check()) {
-                $user = User::where('id', Auth::id())->firstOrFail();
-                    $reversed = $user->browsingHistory->reverse();
 
 
-                $cart = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
-                $likes = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail()->items;
-
-                foreach($reversed as $i) {
-
-                    $i->setAttribute('in_cart', $cart->contains($i->id));
-
-                    $i->setAttribute('is_liked', $likes->contains($i->id));
-                }
-
-            } else {
-                $browsingHistory = session('browsingHistory');
-            if (!is_null($browsingHistory)) {
-                $items = Item::find($browsingHistory)->sortBy(function ($item) use ($browsingHistory) {
-                    return array_search($item->getKey(), $browsingHistory);
-                });
-                $reversed = $items->reverse();
-
-            }
-
-                $cartList = session('cartList');
-                $likesList = session('likesList');
-
-                foreach($reversed as $i) {
-
-                    $i->setAttribute('in_cart', !is_null($cartList) && in_array($i->id, $cartList));
-
-                    $i->setAttribute('is_liked', !is_null($likesList) && in_array($i->id, $likesList));
-                }
-
-            }
-
-	    return view('store', compact('reversed', 'categories', 'brands', 'colors'));
+	    return view('basic.store.store', compact('categories', 'brands', 'colors'));
 	    }
     }
-
-    public function ajaxItems (Request $request) {
-
-	    if (!is_null($request->get('category'))) {
-		    $specs[] = ['category', '=', $request->get('category')];
-	    }
-	    if (!is_null($request->get('brand'))) {
-		    $specs[] = ['brand', '=', $request->get('brand')];
-	    }
-	    if (!is_null($request->get('color'))) {
-		    $specs[] = ['color', '=', $request->get('color')];
-	    }
-	    if (!is_null($request->get('priceMin'))) {
-		    $specs[] = ['price', '>=', (float)$request->get('priceMin')];
-	    }
-	    if (!is_null($request->get('priceMax'))) {
-		    $specs[] = ['price', '<=', (float)$request->get('priceMax')];
-	    }
-	    if (!is_null($request->get('term'))) {
-		    $specs[] = ['title', 'LIKE', '%'.$request->get('term').'%'];
-	    }
-	    if (!is_null($request->get('sortby'))) {
-		    if ($request->get('sortby') == 'priceInDes') {
-			    $collumn = 'price';
-				$orderBy = 'desc';
-		    }
-		    if ($request->get('sortby') == 'priceInAsc') {
-			    $collumn = 'price';
-				$orderBy = 'asc';
-		    }
-		    if ($request->get('sortby') == 'raiting') {
-			    $collumn = 'purchases';
-				$orderBy = 'desc';
-		    }
-		    if ($request->get('sortby') == 'reviews') {
-			    $collumn = 'purchases';
-				$orderBy = 'desc';
-		    }
-
-	    } else {
-		    $collumn = 'purchases';
-		    $orderBy = 'desc';
-	    }
-
-
-	    if (isset($specs)) {
-		    $items = Item::where($specs)->orderBy($collumn, $orderBy)->paginate(3);
-	    } else {
-		    $items = Item::orderBy($collumn, $orderBy)->paginate(3);
-	    }
-
-	    if (Auth::check()) {
-
-		    $cart = Order::where('type', 1)->where('user_id', Auth::id())->firstOrFail()->items;
-
-		    $likes = Order::where('type', 2)->where('user_id', Auth::id())->firstOrFail()->items;
-
-
-	    } else {
-		    $cartList = session('cartList');
-		    $cart = Item::get()->whereIn('id', $cartList);
-		    $likesList = session('likesList');
-		    $likes = Item::get()->whereIn('id', $likesList);
-	    }
-
-	    foreach($items as $item) {
-		    if ($cart->contains($item->id)) {
-			    $item->setAttribute('in_cart', true);
-		    } else {
-			    $item->setAttribute('in_cart', false);
-		    }
-		    if ($likes->contains($item->id)) {
-			    $item->setAttribute('is_liked', true);
-		    } else {
-			    $item->setAttribute('is_liked', false);
-		    }
-	    }
-
-	    return view('layouts.items', compact('items'));
-
-
-}
 
 public function search (Request $request) {
 	$search = $request->get('term');

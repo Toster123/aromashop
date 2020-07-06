@@ -16,8 +16,8 @@ class CreateSpecificationsTable extends Migration
         Schema::create('specifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('item_id');
-            $table->string('spec_name');
-            $table->string('spec_value');
+            $table->string('title');
+            $table->string('value');
             $table->timestamps();
         });
     }

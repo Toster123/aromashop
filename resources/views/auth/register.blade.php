@@ -8,17 +8,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Login</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+	<link rel="icon" href="{{asset('img/Fevicon.png')}}" type="image/png">
+  <link rel="stylesheet" href="{{asset('vendors/bootstrap/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/fontawesome/css/all.min.css')}}">
+	<link rel="stylesheet" href="{{asset('vendors/themify-icons/themify-icons.css')}}">
+	<link rel="stylesheet" href="{{asset('vendors/linericon/style.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/owl-carousel/owl.theme.default.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/owl-carousel/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/nice-select/nice-select.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/nouislider/nouislider.min.css')}}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 <body>
 
@@ -54,37 +54,37 @@
 				<div class="col-lg-6">
 					<div class="login_box_img">
 						<div class="hover">
-							<h4>Already have an account?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="button button-account" href="{{ route('login') }}">Login Now</a>
+							<h4>{{__('user.already_have_an_account')}}</h4>
+							<p>{{__('user.account_description')}}</p>
+							<a class="button button-account" href="{{ route('login') }}">{{__('user.login_now')}}</a>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner register_form_inner">
-						<h3>Create an account</h3>
+						<h3>{{__('user.creating_an_account')}}</h3>
 						<form method="post" class="row login_form" action="{{ route('register') }}" id="register_form" >
 							@csrf
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="text" class="form-control" id="name" name="name" placeholder="{{__('user.name')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{__('user.name')}}'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+								<input type="text" class="form-control" id="email" name="email" placeholder="{{__('user.email_adress')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{__('user.email_adress')}}'">
               </div>
               <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="text" class="form-control" id="password" name="password" placeholder="{{__('user.password')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{__('user.password')}}'">
               </div>
               <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="confirmPassword" name="password_confirmation" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
+								<input type="text" class="form-control" id="confirmPassword" name="password_confirmation" placeholder="{{__('user.confirm_password')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{__('user.confirm_password')}}'">
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
 									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Keep me logged in</label>
+									<label for="f-option2">{{__('user.keep_me_logged_in')}}</label>
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="button button-register w-100">Register</button>
+								<button type="submit" value="submit" class="button button-register w-100">{{__('user.register')}}</button>
                                 @include('auth.socialNetworkAuth')
                             </div>
 						</form>
@@ -192,14 +192,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 @section('end')
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{asset('vendors/jquery/jquery-3.2.1.min.js')}}"></script>
+  <script src="{{asset('vendors/bootstrap/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('vendors/skrollr.min.js')}}"></script>
+  <script src="{{asset('vendors/owl-carousel/owl.carousel.min.js')}}"></script>
+  <script src="{{asset('vendors/nice-select/jquery.nice-select.min.js')}}"></script>
+  <script src="{{asset('vendors/jquery.ajaxchimp.min.js')}}"></script>
+  <script src="{{asset('vendors/mail-script.js')}}"></script>
+  <script src="{{asset('js/main.js')}}"></script>
 </body>
 </html>
 @endsection

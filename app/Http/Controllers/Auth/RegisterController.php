@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Dialog;
+use App\Order;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -28,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/verify/';//в RegistersUsers я добавляю id пользователя!!!!!
+    protected $redirectTo = '/verify/';
 
     /**
      * Create a new controller instance.
@@ -68,5 +71,34 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+
+
+        return $this->registered($request, $user)
+            ?: redirect()->route('verifyPage', $user->id);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $order = new Order();
+        $order->type = 1;
+        $order->user_id = $user->id;
+        $order->save();
+
+        $likes = new Order();
+        $likes->type = 2;
+        $likes->user_id = $user->id;
+        $likes->save();
+
+        $dialog = new Dialog();
+        $dialog->user_id = $user->id;
+        $dialog->save();
     }
 }

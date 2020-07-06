@@ -1,0 +1,67 @@
+<?php
+
+return [
+    //checkout
+    'please' => 'Пожалуйста',
+    'create_an_account' => 'Создайте Аккаунт',
+    'or' => 'или',
+    'login' => 'Войдите',
+    'to_place_an_order' => 'чтобы сделать заказ',
+    'not_availible' => 'нет в наличии',
+
+    'have_a_coupon' => 'Есть купон?',
+    'apply' => 'Применить',
+    'coupon' => 'Купон',
+    'code' => 'Код',
+    'coupons' => 'Купоны',
+    'billing_details' => 'Персональные данные',
+    'full_name' => 'ФИО',
+    'email_adress' => 'Email Адресс',
+    'we_will_contact_you' => 'Если нам понадобится, мы свяжемся с вами',
+    'shipping_details' => 'Детали заказа',
+    'pickup' => 'Самовывоз',
+    'delivery' => 'Доставка',
+    'adress' => 'Адресс',
+    'delivery_date' => 'Дата доставки',
+    'pickup_date' => 'Ваш заказ будет ждать вас в магазине до',
+    'notes' => 'Детали заказа (необязательно)',
+    'your_order' => 'Ваш заказ',
+    'product' => 'Товар',
+    'total' => 'Итого',
+    'subtotal' => 'Всего',
+    'shipping' => 'Получение',
+    'no_items_in_cart' => 'В корзине нету товаров',
+    'payment_upon_receipt' => 'Оплата после получения',
+    'payment_upon_receipt_description' => 'Оплата заказа картой или наличными после заказа',
+    'paypal' => 'Paypal',
+    'paypal_description' => 'Оплата через PayPal; Если у вас нет Аккаунта PayPal, вы можете оплатить через кредитную карту',
+    'ive_read_and_accept_the' => 'Я прочитал(а) и принимаю',
+    'terms_&_conditions' => 'политику конфиденциальности',
+    'proceed_to_confirmation' => 'Оформить',
+
+    //confirmation
+    'thank_you_for_order' => 'Спасибо за заказ! В течении дня наши сотрудники подтвердят его. Возможно нам понадобится связаться с вами.',
+    'please_pay' => 'Так как при оформлении вы выбрали оплату через Paypal, пожалуйста, оплатите заказ.',
+    'click_here_to_proceed_to_payment.' => 'Нажмите сюда, чтобы перейти к оплате.',
+    'order_info' => 'Информация о заказе',
+    'order_id' => 'Id заказа',
+    'date' => 'Оформлен',
+    'payment_method' => 'Способ оплаты',
+    'delivery_method' => 'Способ получения',
+    'must_delivered_at' => 'Должен быть доставлен',
+    'order_details' => 'Детали заказа',
+    'quantity' => 'Количество',
+
+    //tracking
+    'order_status' => 'Статус заказа',
+
+    //order
+    'info' => 'Информация',
+    'items' => 'Товары',
+    'save_changes' => 'Сохранить изменения',
+    'order_notes' => 'Детали заказа',
+    'price' => 'Цена',
+    'coupon_code' => 'Код купона',
+    'apply' => 'Применить',
+    'your_order_status_is' => 'Статус вашего заказа',
+];

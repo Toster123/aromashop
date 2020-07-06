@@ -1,0 +1,51 @@
+<?php
+
+return [
+    //filters
+    'browse_categories' => 'Browse Categories',
+    'product_filters' => 'Product Filters',
+    'brands' => 'Brands',
+    'color' => 'Color',
+    'price' => 'Price',
+    'from' => 'Price',
+    'to' => 'to',
+    //sort
+    'sort_by' => 'Sort By',
+    'popularity' => 'Popylarity',
+    'by_default' => '(by Default)',
+    'by_price' => 'Price',
+    'in_descending_order' => '(in Descending order)',
+    'in_ascending_order' => '(in Ascending order)',
+    'raiting' => 'Raiting',
+    'number_of_reviews' => 'Number of reviews',
+    'search' => 'Search',
+
+    //item
+    'old_price' => 'old price',
+    'add_to_cart' => 'Add to Cart',
+    'in_cart' => 'In Cart',
+    'buy_in_1_click' => 'Buy in 1 click',
+    'category' => 'Category',
+    'availibility' => 'Availibility',
+    'in_stock' => 'in Stock',
+    'not_available' => 'not available',
+    'description' => 'Description',
+    'specifications' => 'Specifications',
+    'comments' => 'Comments',
+    'reviews' => 'Reviews',
+    'post_a_comment' => 'Post a comment',
+    'create_an_account_or_log_in_to_post_a_comments' => 'Create an Account or Log in to post a comments',
+    'create_an_account_or_log_in_to_post_a_reviews' => 'Create an Account or Log in to post a reviews',
+    'add_a_review' => 'Add a Review',
+    'your_rating' => 'Your Rating',
+    'login_now' => 'Login Now',
+    'register_now' => 'Register Now',
+    'message' => 'Message',
+    'submit' => 'Submit',
+    'overall' => 'Overall',
+    'based_on' => 'Based on',
+    'reviews_count' => 'Review|Reviews',
+    'stars' => 'Star|Stars',
+    'subscribe_to_this_product' => 'Subscribe to this product',
+
+];

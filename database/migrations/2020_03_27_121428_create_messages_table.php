@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration
             $table->text('content')->nullable();
             $table->integer('dialog_id');
             $table->boolean('from_the_user')->default(true);
+            $table->string('user_id')->nullable();
             $table->timestamps();
         });
     }

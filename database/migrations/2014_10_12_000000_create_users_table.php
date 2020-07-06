@@ -20,11 +20,13 @@ class CreateUsersTable extends Migration
             $table->timestamp('verified_at')->nullable();
             $table->string('verify_token')->nullable()->unique();
             $table->string('password')->nullable();
-            $table->string('vk_id')->nullable();
+            $table->string('vk_id')->nullable()->unique();
             $table->string('photo_href')->default('errors/user_no_photo.png');
+            $table->integer('role_id')->default(1);
+            $table->string('full_name', 80)->nullable();
+            $table->string('adress', 80)->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->integer('role_id')->default(1);
         });
     }
 

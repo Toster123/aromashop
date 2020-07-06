@@ -17,6 +17,7 @@ class CreateItemOrderTable extends Migration
             $table->bigIncrements('id');
             $table->integer('order_id');
             $table->integer('count')->default(1);
+            $table->integer('price')->nullable();
             $table->integer('item_id');
             $table->timestamps();
         });

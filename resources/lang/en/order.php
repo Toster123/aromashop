@@ -1,0 +1,66 @@
+<?php
+
+return [
+    //checkout
+    'please' => 'Please',
+    'create_an_account' => 'Create an Account',
+    'or' => 'or',
+    'login' => 'Login',
+    'to_place_an_order' => 'to place an order',
+    'not_availible' => 'not availible',
+
+    'have_a_coupon' => 'Have a coupon?',
+    'coupon_code' => 'Coupon Code',
+    'apply' => 'Apply',
+    'coupon' => 'Coupon',
+    'code' => 'Code',
+    'coupons' => 'Coupons',
+    'billing_details' => 'Billing Details',
+    'full_name' => 'Full name',
+    'email_adress' => 'Email Adress',
+    'we_will_contact_you' => 'If we need it, then we will contact you',
+    'shipping_details' => 'Shipping Details',
+    'pickup' => 'Pickup',
+    'delivery' => 'Delivery',
+    'adress' => 'Adress',
+    'delivery_date' => 'Delivery Date',
+    'pickup_date' => 'Your order will be waiting for you during the week until',
+    'notes' => 'Order Notes (optionally)',
+    'your_order' => 'Your Order',
+    'product' => 'Product',
+    'total' => 'Total',
+    'subtotal' => 'Subtotal',
+    'shipping' => 'Shipping',
+    'no_items_in_cart' => 'No items in cart',
+    'payment_upon_receipt' => 'Payment upon receipt',
+    'payment_upon_receipt_description' => 'Payment by card or cash upon receipt of the order.',
+    'paypal' => 'Paypal',
+    'paypal_description' => 'Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.',
+    'ive_read_and_accept_the' => 'I’ve read and accept the',
+    'terms_&_conditions' => 'terms & conditions',
+    'proceed_to_confirmation' => 'Proceed to Confirmation',
+
+    //confirmation
+    'thank_you_for_order' => 'Thank you for the order! During the day, our employees will confirm your order. We may need to contact you via email.',
+    'please_pay' => 'Since you have chosen the payment method through Paypal, please pay it.',
+    'click_here_to_proceed_to_payment.' => 'Click here to proceed to payment.',
+    'order_info' => 'Order Info',
+    'order_id' => 'Order Id',
+    'date' => 'Date',
+    'payment_method' => 'Payment method',
+    'delivery_method' => 'Delivery method',
+    'must_delivered_at' => 'Must delivered at',
+    'order_details' => 'Order Details',
+    'quantity' => 'Quantity',
+
+    //tracking
+    'order_status' => 'Order Status',
+
+    //order
+    'info' => 'Info',
+    'items' => 'Items',
+    'save_changes' => 'Save Changes',
+    'order_notes' => 'Order Notes',
+    'price' => 'Price',
+    'your_order_status_is' => 'Your order status is',
+];

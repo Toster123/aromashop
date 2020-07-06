@@ -1,20 +1,20 @@
 function removeURLParameter(url, parameter) {
-		  
+
     //prefer to use l.search if you have a location/link object
-    var urlparts= url.split('?');   
+    var urlparts= url.split('?');
     if (urlparts.length>=2) {
 
         var prefix= encodeURIComponent(parameter)+'=';
         var pars= urlparts[1].split(/[&;]/g);
 
         //reverse iteration as may be destructive
-        for (var i= pars.length; i-- > 0;) {    
+        for (var i= pars.length; i-- > 0;) {
             //idiom for string.startsWith
-            if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+            if (pars[i].lastIndexOf(prefix, 0) !== -1) {
                 pars.splice(i, 1);
             }
         }
-        
+
         if(pars.length > 0) {
             url= urlparts[0]+'?'+pars.join('&');
         } else {
@@ -25,13 +25,13 @@ function removeURLParameter(url, parameter) {
     } else {
         return url;
     }
-    
+
 }
-	  
-	  
-	  
-	  
-	  
+
+
+
+
+
 	  function serializeGet(obj) {
   var str = [];
   for(var p in obj)
@@ -58,13 +58,13 @@ function addGet(url, get) {
   if (!url.match(/\.\w{3,4}$/) && url.substr(-1, 1) !== '/') {
     url += '/';
   }
-  
+
   return url + '?' + get;
 }
-	  
+
 	  function checkSlashInPath () {if (window.location.pathname.charAt(window.location.pathname.length - 1) == '/') {return '';} else {return '/';}}
-	  
-	  
+
+
 
 $(function() {
   "use strict";
@@ -134,13 +134,13 @@ $(function() {
     dots:false
   });
 
-  //------- mailchimp --------//  
+  //------- mailchimp --------//
 	function mailChimp() {
 		$('#mc_embed_signup').find('form').ajaxChimp();
 	}
   mailChimp();
-  
-  //------- fixed navbar --------//  
+
+  //------- fixed navbar --------//
   $(window).scroll(function(){
     var sticky = $('.header_area'),
     scroll = $(window).scrollTop();
@@ -151,13 +151,13 @@ $(function() {
 
   //------- Price Range slider -------//
   if(document.getElementById("price-range")){
-  
+
     var nonLinearSlider = document.getElementById('price-range');
-    
+
     noUiSlider.create(nonLinearSlider, {
         connect: true,
         behaviour: 'tap',
-        start: [ 500, 10000 ],
+        start: [ 0, 10000 ],
         range: {
             // Starting at 500, step the value by 500,
             // until 4000 is reached. From there, step by 1000.
@@ -167,13 +167,13 @@ $(function() {
             'max': [ 10000 ]
         }
     });
-  
-  
+
+
     var nodes = [
         document.getElementById('lower-value'), // 0
         document.getElementById('upper-value')  // 1
     ];
-  
+
     // Display the slider value and how far the handle moved
     // from the left edge of the slider.
     nonLinearSlider.noUiSlider.on('update', function ( values, handle, unencoded, isTap, positions ) {
@@ -181,13 +181,13 @@ $(function() {
 	    history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'priceMin'), 'priceMin=' + nodes[0].innerHTML));
 	    history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'priceMax'), 'priceMax=' + nodes[1].innerHTML));
 	    ajaxQuery();
-	    
-        
-        
+
+
+
     });
-  
+
   }
-  
+
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Dialog;
 use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -75,6 +76,10 @@ class LoginController extends Controller
                         $likes->user_id = $user->id;
                         $likes->save();
 
+                        $dialog = new Dialog();
+                        $dialog->user_id = $user->id;
+                        $dialog->save();
+
                     Auth::login($user);
                     }
                 } else {
@@ -85,7 +90,7 @@ class LoginController extends Controller
                     }
                 }
             } else {
-                $user = User::where('vk_id', $user_data['id'])->first();
+                $user = User::where('vk_id', $user_data['id'])->firstOrFail();
                 if (is_null($user)) {
                     $user = new User();
                     $user->name = $user_data['first_name'];
@@ -102,6 +107,10 @@ class LoginController extends Controller
                         $likes->type = 2;
                         $likes->user_id = $user->id;
                         $likes->save();
+
+                        $dialog = new Dialog();
+                        $dialog->user_id = $user->id;
+                        $dialog->save();
 
                     Auth::login($user);
                 } else {

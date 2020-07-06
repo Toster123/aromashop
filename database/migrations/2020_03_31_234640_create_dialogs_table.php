@@ -16,7 +16,7 @@ class CreateDialogsTable extends Migration
         Schema::create('dialogs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->boolean('seen')->default(false);
+            $table->boolean('seen')->default(true);
             $table->timestamps();
         });
     }

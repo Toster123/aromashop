@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -39,43 +40,35 @@ class VerificationController extends Controller
      */
 
     public function send ($userId) {
+        try {
+            $user = User::where('id', $userId)->where('verified_at', null)->firstOrFail();
+            $token = Str::random(20);
+            $name = $user->name;
+            $user->verify_token = $token;
+            $user->save();
+            Mail::to($user->email)->send(new EmailVerify($name, $token));
+            return view('auth.verifyPage');
+        } catch (ModelNotFoundException $e) {
 
-    $user = User::where('id', $userId)->where('verified_at', null)->firstOrFail();
-    if (!is_null($user)) {
-//Mail::to
-        if ($user->verified_at == null) {
-        $token = Str::random(20);
-        $name = $user->name;
-        $user->verify_token = $token;
-        $user->save();
-        Mail::to($user->email)->send(new EmailVerify($name, $token));
-    } else {
-
-    }
-
-    } else {
-
-    }
-    return view('auth.verifyPage');
-
+        }
     }
 
     public function __construct()
     {
-        
+
     }
 
 public function verify($token) {
-    $user = User::where('verify_token', $token)->firstOrFail();
-        if (!is_null($user)) {
+        try {
+            $user = User::where('verify_token', $token)->firstOrFail();
             $user->verify_token = null;
             $user->verified_at = now();
             $user->save();
             Auth::login($user);
-        } else {
+            return view('auth.verifySuccess');
+        } catch (ModelNotFoundException $e) {
 
         }
-return view('auth.verifySuccess');
     }
 
 }

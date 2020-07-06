@@ -21,7 +21,7 @@ class CreateItemsTable extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('brand_id')->nullable();
             $table->integer('color_id')->nullable();
-            $table->boolean('availibility')->default(true);
+            $table->integer('quantity')->default(0);
             $table->integer('purchases');
             $table->integer('discount');
             $table->string('img_href')->nullable();

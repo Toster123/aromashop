@@ -1,3 +1,26 @@
+<!-- ================ Subscribe section start ================= -->
+<section class="subscribe-position">
+    <div class="container">
+        <div class="subscribe text-center">
+            <h3 class="subscribe__title">Get Update From Anywhere</h3>
+            <p>Bearing Void gathering light light his eavening unto dont afraid</p>
+            <div id="mc_embed_signup">
+                <form target="_blank" action="" method="post" class="subscribe-form form-inline mt-5 pt-1">
+                    <div class="form-group ml-sm-auto">
+                        <input class="form-control mb-1" type="email" name="email" placeholder="{{__('user.email_adress')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = {{__('user.email_adress')}}" >
+                        <div class="info"></div>
+                    </div>
+                    <button class="button button-subscribe mr-auto mb-1" type="submit">{{__('user.subscribe')}}</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ================ Subscribe section end ================= -->
+
+
 <!--================ Start footer Area  =================-->
 <footer class="footer">
     <div class="footer-area">
