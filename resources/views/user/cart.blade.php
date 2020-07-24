@@ -68,13 +68,9 @@
                           <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
-                                      <div class="d-flex">
+                                      <div class="cart-item-image">
                                           <a href="{{ route('item', $item->id) }}">
-                                            @if(is_null($item->img_href))
-                                            <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
-                                            @else
                                             <img width="150" src="{{ asset($item->img_href) }}" alt="">
-                                            @endif
                                           </a>
                                       </div>
                                       <div class="media-body">
@@ -123,12 +119,10 @@
                           <tr id="{{$item->id}}item">
                               <td>
                                   <div class="media">
-                                      <div class="d-flex">
-                                          <a href="{{ route('item', $item->id) }}">@if(is_null($item->img_href))
-                                                  <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
-                                              @else
+                                      <div class="cart-item-image">
+                                          <a href="{{ route('item', $item->id) }}">
                                                   <img width="150" src="{{ asset($item->img_href) }}" alt="">
-                                              @endif</a>
+                                          </a>
                                       </div>
                                       <div class="media-body">
                                           <h5 class="card-product__title"><a href="{{ route('item', $item->id) }}">{{ $item->title }}
@@ -282,33 +276,8 @@
 
 @section('end')
   <script type="text/javascript">
-	  function cartAdd (itemId) {
-
-		  $.ajax({
-			  url: '{{action("UserController@cartAdd")}}' + '?itemId=' + itemId,
-			  type: 'GET',
-
-			  success: function (response) {
-
-				  location.reload();
-
-			  }
-		  })
-
-	  }
-
-	  function cartRemove (itemId) {
-
-		  $.ajax({
-			  url: '{{action("UserController@cartRemove")}}' + '?itemId=' + itemId,
-			  type: 'GET',
-
-			  success: function (response) {
-				  location.reload();
-			  }
-		  })
-
-	  }
+      var cartAddUrl = '{{action("UserController@cartAdd")}}';
+      var cartRemoveUrl = '{{action("UserController@cartRemoveWithoutCount")}}';
   </script>
   <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js')}}"></script>
   <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js')}}"></script>
@@ -318,6 +287,7 @@
   <script src="{{ asset('vendors/jquery.ajaxchimp.min.js')}}"></script>
   <script src="{{ asset('vendors/mail-script.js')}}"></script>
   <script src="{{ asset('js/main.js')}}"></script>
+  <script src="{{ asset('js/cart.js')}}"></script>
 </body>
 </html>
 

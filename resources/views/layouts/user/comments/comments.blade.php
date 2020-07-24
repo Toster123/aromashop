@@ -3,12 +3,16 @@
 
         <div class="review_item">
             <div class="media">
+                <a href="{{ route('item', $comment->item->id) }}">
                 <div class="d-flex">
                         <img height="70" src="{{ asset($comment->item->img_href) }}" alt="">
                 </div>
+                </a>
                 <div class="media-body">
+                    <a href="{{ route('item', $comment->item->id) }}">
                     <h4 id="commname">{{$comment->item->title}}</h4>
-                    <h5>12th Feb, 2018 at 05:56 pm</h5>
+                    </a>
+                    <h5>{{date_format($comment->created_at, 'H:i d.m.Y')}}</h5>
 
                     {{--                                                <a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>--}}
 

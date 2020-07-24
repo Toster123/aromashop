@@ -69,9 +69,9 @@ class StoreController extends Controller
 
 
 	    if (isset($specs)) {
-		    $items = Item::where($specs)->orderBy($collumn, $orderBy)->paginate(3)->withPath("?".http_build_query($request->except('page')));
+		    $items = Item::where($specs)->orderBy($collumn, $orderBy)->paginate(9)->withPath("?".http_build_query($request->except('page')));
 	    } else {
-		    $items = Item::orderBy($collumn, $orderBy)->paginate(3)->withPath("?".http_build_query($request->except('page')));
+		    $items = Item::orderBy($collumn, $orderBy)->paginate(9)->withPath("?".http_build_query($request->except('page')));
 	    }
 
 	    if (Auth::check()) {

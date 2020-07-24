@@ -62,7 +62,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}"><button><i class="ti-heart"></i></button></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}"><button><i class="ti-shopping-cart"></i><span id="cartCount" class="nav-shop__circle">3</span></button></a></li>
                         @auth
-                        <li class="nav-item"><a class="nav-link" href="{{ route('chat', Auth::id()) }}"><button><i class="ti-comments"></i><span id="cartCount" class="nav-shop__circle">3</span></button></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Auth::user()->role->title == 'admin' || Auth::user()->role->title == 'support' ? route('adminChat') : route('chat', Auth::id()) }}"><button><i class="ti-comments"></i><span id="cartCount" class="nav-shop__circle">3</span></button></a></li>
                             @endauth
                     </ul>
 
@@ -73,7 +73,7 @@
                        <ul class="nav nav-shop navbar-nav menu_nav ml-auto mr-auto">
                         <li class="nav-item submenu dropdown">
 
-                                    <img id="img_photo" width="80" src="{{Storage::url(Auth::user()->photo_href)}}" alt="Image"
+                                    <img id="img_photo" width="80" src="{{asset(Auth::user()->photo_href)}}" alt="Image"
                                          class="img-fluid rounded-circle avatar-nav img-thumbnail">
 
                                 <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -85,7 +85,7 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ route('tracking') }}">{{__('links.tracking')}}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">{{__('links.cart')}}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('likes') }}">{{__('links.likes')}}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">{{__('links.logout')}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('get:logout') }}">{{__('links.logout')}}</a></li>
 
                             </ul>
                     </li>

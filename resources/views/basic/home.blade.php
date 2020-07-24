@@ -41,7 +41,7 @@
                         <h4>{{__('basic.shop_is_fun')}}</h4>
                         <h1>{{__('basic.browse_our_popular_products')}}</h1>
                         <p>{{__('basic.store_description')}}</p>
-                        <a class="button button-hero" href="#">{{__('basic.browse_now')}}</a>
+                        <a class="button button-hero" href="{{route('store')}}">{{__('basic.browse_now')}}</a>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                         <h3>{{__('basic.up_to_50_off')}}</h3>
                         <h4>{{__('basic.winter_sale')}}</h4>
                         <p>{{__('basic.hurry_up_to_buy_long-desired_products_at_a_discount')}}</p>
-                        <a class="button button--active mt-3 mt-xl-4" href="#">{{__('basic.shop_now')}}</a>
+                        <a class="button button--active mt-3 mt-xl-4" href="{{route('store')}}">{{__('basic.shop_now')}}</a>
                     </div>
                 </div>
             </div>
@@ -242,7 +242,12 @@
 @endsection
 
 @section('end')
-
+<script type="text/javascript">
+    var cartAddUrl = '{{action("UserController@cartAdd")}}';
+    var cartRemoveUrl = '{{action("UserController@cartRemoveWithoutCount")}}';
+    var likesAddUrl = '{{action("UserController@likesAdd")}}';
+    var likesRemoveUrl = '{{action("UserController@likesRemove")}}';
+</script>
 <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
@@ -251,6 +256,7 @@
 <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
 <script src="{{ asset('vendors/mail-script.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/ajaxCartLikes.js') }}"></script>
 </body>
 </html>
 

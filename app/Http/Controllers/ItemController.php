@@ -63,7 +63,7 @@ class ItemController extends Controller
                 $comment = new Comment;
                 $comment->item_id = $itemId;
                 $comment->user_id = Auth::id();
-                $comment->message = $request->message;
+                $comment->content = $request->message;
                 $comment->save();
             } else {
                 $answer = new Answer;

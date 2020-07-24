@@ -42,11 +42,11 @@ class UserController extends Controller
                 $file = $request->photo;
                 $hash = Str::random(15);
                 $ext = $file->getClientOriginalExtension();
-                $path = 'users/' . $hash . '.' . $ext;
+                $path = 'storage/users/' . $hash . '.' . $ext;
                 $image = Image::make($file)
                     ->resize(500, 500)
-                    ->save('storage/' . $path);
-                if ($user->photo_href !== 'errors/user_no_photo.png') {
+                    ->save($path);
+                if ($user->photo_href !== 'storage/errors/user_no_photo.png') {
                     Storage::delete($user->photo_href);
                 }
                 $user->photo_href = $path;

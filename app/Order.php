@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Integer;
 
 class Order extends Model
 {
@@ -75,7 +76,7 @@ class Order extends Model
 
     public function isAvailibleItems () {
         foreach($this->items as $item) {
-            if ($item->pivot->conut > $item->quantity) {
+            if ($item->pivot->count > $item->quantity) {
                 return false;
             }
         }

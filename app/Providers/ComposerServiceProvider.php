@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\ViewComposers\BestDiscountComposer;
 use App\Http\ViewComposers\BrowsingHistoryComposer;
+use App\Http\ViewComposers\FooterComposer;
 use App\Http\ViewComposers\OrderStatusesComposer;
 use App\Http\ViewComposers\TrandingProductsComposer;
 use Illuminate\Support\ServiceProvider;
@@ -33,5 +34,6 @@ class ComposerServiceProvider extends ServiceProvider
         view()->composer('layouts.includes.trandingProducts', TrandingProductsComposer::class);
         view()->composer('layouts.includes.bestDiscount', BestDiscountComposer::class);
         view()->composer('order.order', OrderStatusesComposer::class);
+        view()->composer('layouts.footerarea', FooterComposer::class);
     }
 }

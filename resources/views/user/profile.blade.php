@@ -52,7 +52,7 @@
                 <div class="col-lg-6">
                     <div>
                         <div class="single-prd-item">
-                                <img class="img-fluid" src="{{Storage::url($user->photo_href)}}" alt="">
+                                <img class="img-fluid" src="{{asset($user->photo_href)}}" alt="">
                         </div>
                         <!-- <div class="single-prd-item">
                             <img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -187,11 +187,32 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ 0 }}</h5>
+                                                            <h5 style="color:
+                                                            @switch($order->status_id)
+                                                            @case(1)
+                                                                gray;
+                                                            @break
+                                                            @case(2)
+                                                                darkorange;
+                                                            @break
+                                                            @case(3)
+                                                                dodgerblue;
+                                                            @break
+                                                            @case(4)
+                                                                dodgerblue;
+                                                            @break
+                                                            @case(5)
+                                                                green;
+                                                            @break
+                                                            @case(6)
+                                                                darkred;
+                                                            @break
+                                                            @endswitch
+                                                                ">{{ $order->status->title }}</h5>
                                                         </td>
 
                                                         <td>
-                                                            <h5>${{ 0 }}</h5>
+                                                            <h5>${{ $order->getFullPriceAtTheTimeOfRegistration() }}</h5>
                                                         </td>
                                                     </tr>
 
@@ -226,22 +247,22 @@
 
                                         <div class="review_item">
                                         <div class="media">
+                                            <a href="{{ route('item', $comment->item->id) }}">
                                             <div class="d-flex">
-                                                @if($comment->item->img_href)
                                                 <img height="70" src="{{ asset($comment->item->img_href) }}" alt="">
-                                                    @else
-                                                    <img height="70" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
-                                                    @endif
                                             </div>
+                                            </a>
                                             <div class="media-body">
+                                                <a href="{{ route('item', $comment->item->id) }}">
                                                 <h4 id="commname">{{$comment->item->title}}</h4>
-                                                <h5>12th Feb, 2018 at 05:56 pm</h5>
+                                                </a>
+                                                <h5>{{date_format($comment->created_at, 'H:i d.m.Y')}}</h5>
 
 {{--                                                <a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>--}}
 
                                             </div>
                                         </div>
-                                        <p>{{$comment->message}}</p>
+                                        <p>{{$comment->content}}</p>
                                     </div>
                                         @else
                                             <button style="background-color: #CDCFD6; border-color: #CDCFD6" onclick="moreComments({{$comment->id}}, this);" type="button" class="btn btn-secondary btn-lg btn-block">more...</button>
@@ -277,15 +298,15 @@
                                     @if($loop->iteration < 8)
                                     <div class="review_item">
                                         <div class="media">
+                                            <a href="{{ route('item', $review->item->id) }}">
                                             <div class="d-flex">
-                                                @if($review->item->img_href)
                                                 <img height="70" src="{{ asset($review->item->img_href) }}" alt="">
-                                                    @else
-                                                    <img height="70" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
-                                                    @endif
                                             </div>
+                                            </a>
                                             <div class="media-body">
+                                                <a href="{{ route('item', $review->item->id) }}">
                                                 <h4>{{$review->item->title}}</h4>
+                                                </a>
                                                 @switch($review->rating)
                                                     @case(5)
                                                     <i class="fa fa-star"></i>
@@ -359,6 +380,13 @@
 @endsection
 
 @section('end')
+    <script type="text/javascript">
+        var moreCommentsUrl = '{{action("ItemController@moreComments", isset($item->id) ? $item->id : 0)}}';
+        var moreAnswersUrl = '';
+        var moreReviewsUrl = '{{action("ItemController@moreReviews", isset($item->id) ? $item->id : 0)}}';
+
+        var userId = '@if(isset($user->id)) "&userId=" {{$user->id}} @endif';
+    </script>
     <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
@@ -367,30 +395,7 @@
     <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
     <script src="{{ asset('vendors/mail-script.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script>
-        function moreComments(commentId, button) {
-            $.ajax({
-                url: '{{action("ItemController@moreComments", isset($item->id) ? $item->id : 0)}}' + '?commentId=' + commentId @if(!is_null($user->id)) + '&userId=' + {{$user->id}} @endif,
-                type: 'GET',
-                datatype: 'html',
-                success: function (comments) {
-                    button.insertAdjacentHTML('beforebegin', comments);
-                    button.remove();
-                }
-            });
-        }
-        function moreReviews(reviewId, button) {
-            $.ajax({
-                url: '{{action("ItemController@moreReviews", isset($item->id) ? $item->id : 0)}}' + '?reviewId=' + reviewId @if(!is_null($user->id)) + '&userId=' + {{$user->id}} @endif,
-                type: 'GET',
-                datatype: 'html',
-                success: function (reviews) {
-                    button.insertAdjacentHTML('beforebegin', reviews);
-                    button.remove();
-                }
-            });
-        }
-    </script>
+    <script src="{{ asset('js/item.js') }}"></script>
 </body>
 </html>
 

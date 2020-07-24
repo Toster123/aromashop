@@ -46,7 +46,7 @@ class OrderController extends Controller
 
     public function orderCreate (Request $request) {
         if (Auth::check()) {
-            if ($request->accept == 'on' && $request->full_name && !is_null($request->payment_method) && $request->email && !Auth::user()->cart->items->isEmpty() && Auth::user()->cart->isAvailibleItems) {
+            if ($request->accept == 'on' && $request->full_name && !is_null($request->payment_method) && $request->email && !Auth::user()->cart->items->isEmpty() && Auth::user()->cart->isAvailibleItems()) {
 
                     if ($request->delivery_method == 1) {
 

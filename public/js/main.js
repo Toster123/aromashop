@@ -157,7 +157,7 @@ $(function() {
     noUiSlider.create(nonLinearSlider, {
         connect: true,
         behaviour: 'tap',
-        start: [ 0, 10000 ],
+        start: [ priceMin, priceMax ],
         range: {
             // Starting at 500, step the value by 500,
             // until 4000 is reached. From there, step by 1000.
@@ -180,7 +180,7 @@ $(function() {
 	    nodes[handle].innerHTML = values[handle];
 	    history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'priceMin'), 'priceMin=' + nodes[0].innerHTML));
 	    history.pushState({}, '', addGet(removeURLParameter(window.location.href, 'priceMax'), 'priceMax=' + nodes[1].innerHTML));
-	    ajaxQuery();
+	    getItems();
 
 
 

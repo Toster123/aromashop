@@ -3,11 +3,7 @@
                 <div class="card text-center card-product">
                   <div class="card-product__img">
                     <a href="{{route('item', $item->id)}}">
-                    @if(is_null($item->img_href))
-                    <img class="card-img" height="255" src="{{asset('storage/errors/item_no_img.png')}}" alt="">
-                    @else
                     <img class="card-img" height="255" src="{{asset($item->img_href)}}" alt="">
-                    @endif
                     </a>
                     <ul class="card-product__imgOverlay">
                         @if($item->in_cart)

@@ -79,14 +79,6 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-
-
-        return $this->registered($request, $user)
-            ?: redirect()->route('verifyPage', $user->id);
-    }
-
-    protected function registered(Request $request, $user)
-    {
         $order = new Order();
         $order->type = 1;
         $order->user_id = $user->id;
@@ -100,5 +92,13 @@ class RegisterController extends Controller
         $dialog = new Dialog();
         $dialog->user_id = $user->id;
         $dialog->save();
+
+        return $this->registered($request, $user)
+            ?: redirect()->route('verifyPage', $user->id);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+
     }
 }

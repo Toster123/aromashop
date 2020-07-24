@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/aromashop.iml" filepath="$PROJECT_DIR$/.idea/aromashop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../masha/database/seeds/.idea/seeds.iml" filepath="$PROJECT_DIR$/../masha/database/seeds/.idea/seeds.iml" />
     </modules>
   </component>
 </project>

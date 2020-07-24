@@ -2,11 +2,15 @@
     @if($loop->iteration < 5)
         <div class="review_item">
             <div class="media">
+                <a href="{{ route('profile', $review->user->id) }}">
                 <div class="d-flex">
-                    <img src="{{ asset('img/product/review-1.png') }}" alt="">
+                    <img src="{{ asset($review->user->photo_href) }}" alt="">
                 </div>
+                </a>
                 <div class="media-body">
+                    <a href="{{ route('profile', $review->user->id) }}">
                     <h4>{{$review->user->name}}</h4>
+                    </a>
                     @switch($review->rating)
                         @case(5)
                         <i class="fa fa-star"></i>
@@ -48,7 +52,7 @@
             </div>
             <p>{{$review->content}}</p>
         </div>
-    @elseif($item->reviews->count() > 4)
+    @elseif($loop->iteration > 4)
         <button style="background-color: #CDCFD6; border-color: #CDCFD6" onclick="moreReviews({{$review->id}}, this);" type="button" class="btn btn-secondary btn-lg btn-block">more...</button>
         @break
     @endif

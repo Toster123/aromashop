@@ -30,7 +30,7 @@
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>Product Checkout</h1>
+					<h1>{{__('links.checkout')}}</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{route('/')}}">{{__('links.home')}}</a></li>
@@ -148,7 +148,7 @@
                         	</div>
                             <div id="pickupSelected">
                                 <div class="col-md-12 form-group">
-                                <p>{{__('order.pickup_date')}} 24/06/2020</p>
+                                <p>{{__('order.pickup_date')}} {{date("d.m.Y", strtotime("+7 day"))}}</p>
                                 </div>
                             </div>
 
@@ -252,14 +252,20 @@
                             <a href="#">{{__('order.terms_&_conditions')}}</a>
                         </div>
                         <div class="text-center">
-                          <button disabled style="border-radius:30px;" class="button-paypal" id="submit" type="submit">{{__('order.proceed_to_confirmation')}}</button>
-                          <button class="button button-paypal" id="submit_" type="submit">{{__('order.proceed_to_confirmation')}}</button>
-                        </div>
+                            @auth
+                            @if($order->isAvailibleItems())
+                                    <button class="button button-paypal" id="submit_" type="submit">{{__('order.proceed_to_confirmation')}}</button>
+                                @else
+                                    <button disabled style="border-radius:30px;" class="button-paypal" id="submit" type="submit">{{__('order.proceed_to_confirmation')}}</button>
+                                @endif
+                            @endauth
                         @guest
+                            <button disabled style="border-radius:30px;" class="button-paypal" id="submit" type="submit">{{__('order.proceed_to_confirmation')}}</button>
                         <div class="creat_account">
                             <label for="f-option4">{{__('order.please')}}, <a href="{{route('register')}}">{{__('order.create_an_account')}}</a> {{__('order.or')}} <a href="{{route('login')}}">{{__('order.login')}}</a> {{__('order.to_place_an_order')}}</label></div>
                         </div>
                         @endguest
+                        </div>
 
                 </div>
                 </form>
@@ -289,39 +295,7 @@
             document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n')
         }
     </script>
-    <script type="text/javascript">
-
-
-
-	  function Selected(a) {
-
-	    var label = a.value;
-
-	    if (label==1) {
-
-	        document.getElementById("deliverySelected").hidden=true;
-
-	    } else {
-
-	        document.getElementById("deliverySelected").hidden=false;
-	    }
-
-
-
-	}
-
-	  window.addEventListener('DOMContentLoaded', function() {
-		  Selected(document.getElementById('shippingOption'));
-		  if (document.getElementById('date').type != 'date') {
-              $('#date').datepicker({
-                  minDate: '+7D',
-                  maxDate: '+40D',
-                  dateFormat: 'yy-mm-dd'
-              });
-          }
-
-	});
-  </script>
+    <script src="{{ asset('js/checkout.js') }}"></script>
 
 </body>
 </html>

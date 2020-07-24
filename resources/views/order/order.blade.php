@@ -210,13 +210,9 @@
                                             <tr>
                                                 <td>
                                                     <div class="media">
-                                                        <div class="d-flex">
+                                                        <div class="cart-item-image">
                                                             <a href="{{ route('item', $item->id) }}">
-                                                                @if(is_null($item->img_href))
-                                                                    <img width="150" src="{{ asset('storage/errors/item_no_img.png') }}" alt="">
-                                                                @else
                                                                     <img width="150" src="{{ asset($item->img_href) }}" alt="">
-                                                                @endif
                                                             </a>
                                                         </div>
                                                         <div class="media-body">
@@ -491,39 +487,7 @@
           document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n')
       }
   </script>
-  <script type="text/javascript">
-
-
-
-      function Selected(a) {
-
-          var label = a.value;
-
-          if (label==1) {
-
-              document.getElementById("deliverySelected").hidden=true;
-
-          } else {
-
-              document.getElementById("deliverySelected").hidden=false;
-          }
-
-
-
-      }
-
-      window.addEventListener('DOMContentLoaded', function() {
-          Selected(document.getElementById('shippingOption'));
-          if (document.getElementById('date').type != 'date') {
-              $('#date').datepicker({
-                  minDate: '+7D',
-                  maxDate: '+40D',
-                  dateFormat: 'yy-mm-dd'
-              });
-          }
-
-      });
-  </script>
+  <script src="{{ asset('js/checkout.js') }}"></script>
 </body>
 </html>
 

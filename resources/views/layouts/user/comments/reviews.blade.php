@@ -2,11 +2,15 @@
     @if($loop->iteration < 8)
         <div class="review_item">
             <div class="media">
+                <a href="{{ route('item', $review->item->id) }}">
                 <div class="d-flex">
                         <img height="70" src="{{ asset($review->item->img_href) }}" alt="">
                 </div>
+                </a>
                 <div class="media-body">
+                    <a href="{{ route('item', $review->item->id) }}">
                     <h4>{{$review->item->title}}</h4>
+                    </a>
                     @switch($review->rating)
                         @case(5)
                         <i class="fa fa-star"></i>

@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Aroma Shop - Product Details</title>
+  <title>Aroma Shop - {{__('links.single')}}</title>
 	<link rel="icon" href="{{ asset('img/Fevicon.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ asset('vendors/bootstrap/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/fontawesome/css/all.min.css') }}">
@@ -31,11 +31,11 @@
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>Shop Single</h1>
+					<h1>{{__('links.single')}}</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Shop Single</li>
+              <li class="breadcrumb-item"><a href="{{route('/')}}">{{__('links.home')}}</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{__('links.single')}}</li>
             </ol>
           </nav>
 				</div>
@@ -161,64 +161,7 @@
 									</td>
 								</tr>
 								@endforeach
-								<!-- ---- -->
-								<!-- <tr>
-									<td>
-										<h5>Height</h5>
-									</td>
-									<td>
-										<h5>508mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Depth</h5>
-									</td>
-									<td>
-										<h5>85mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Weight</h5>
-									</td>
-									<td>
-										<h5>52gm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Quality checking</h5>
-									</td>
-									<td>
-										<h5>yes</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Freshness Duration</h5>
-									</td>
-									<td>
-										<h5>03days</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>When packeting</h5>
-									</td>
-									<td>
-										<h5>Without touch of hand</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Each Box contains</h5>
-									</td>
-									<td>
-										<h5>60pcs</h5>
-									</td>
-								</tr> -->
-							</tbody>
+                            </tbody>
 						</table>
 					</div>
 				</div>
@@ -230,29 +173,37 @@
                                     @if($loop->iteration < 6)
 								<div class="review_item">
 									<div class="media">
+                                        <a href="{{ route('profile', $comment->user->id) }}">
 										<div class="d-flex">
-											<img src="{{ asset('img/product/review-1.png') }}" alt="">
+											<img src="{{ asset($comment->user->photo_href) }}" alt="">
 										</div>
+                                        </a>
 										<div class="media-body">
-											<h4 id="commname">{{$comment->user->name}}</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
+                                            <a href="{{ route('profile', $comment->user->id) }}">
+                                            <h4 id="commname">{{$comment->user->name}}</h4>
+                                            </a>
+											<h5>{{date_format($comment->created_at, 'H:i d.m.Y')}}</h5>
 
 											<a class="reply_btn" onclick="var name = '{{$comment->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>
 
 										</div>
 									</div>
-									<p>{{$comment->message}}</p>
+									<p>{{$comment->content}}</p>
 								</div>
 								@foreach($comment->answers as $answer)
                                             @if($loop->iteration < 4)
 								<div class="review_item reply">
 									<div class="media">
-										<div class="d-flex">
-											<img src="{{ asset('img/product/review-2.png') }}" alt="">
+                                        <a href="{{ route('profile', $answer->user->id) }}">
+                                        <div class="d-flex">
+											<img src="{{ asset($answer->user->photo_href) }}" alt="">
 										</div>
+                                        </a>
 										<div class="media-body">
-											<h4>{{$answer->user->name}}</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
+                                            <a href="{{ route('profile', $answer->user->id) }}">
+                                            <h4>{{$answer->user->name}}</h4>
+                                            </a>
+											<h5>{{date_format($answer->created_at, 'H:i d.m.Y')}}</h5>
 											<a class="reply_btn" onclick="var name = '{{$answer->user->name}}'; var hidden = document.getElementById('commentid'); hidden.value = {{$comment->id}}; var result = document.getElementById('ansname'); document.getElementById('answer_field').hidden = false; result.value = name; return false;">Reply</a>
 										</div>
 									</div>
@@ -368,11 +319,15 @@
                                     @if($loop->iteration < 5)
 								<div class="review_item">
 									<div class="media">
-										<div class="d-flex">
-											<img src="{{ asset('img/product/review-1.png') }}" alt="">
+                                        <a href="{{ route('profile', $review->user->id) }}">
+                                        <div class="d-flex">
+											<img src="{{ asset($review->user->photo_href) }}" alt="">
 										</div>
+                                        </a>
 										<div class="media-body">
+                                            <a href="{{ route('profile', $review->user->id) }}">
 											<h4>{{$review->user->name}}</h4>
+                                            </a>
 											@switch($review->rating)
 											@case(5)
 											<i class="fa fa-star"></i>
@@ -606,131 +561,30 @@
 	<!--================End Product Description Area =================-->
 
 	<!--================ Start related Product area =================-->
-	<section class="related-product-area section-margin--small mt-0">
-		<div class="container">
-			<div class="section-intro pb-60px">
-        <p>Popular Item in the market</p>
-        <h2>Top <span class="section-intro__style">Product</span></h2>
-      </div>
-			<div class="row mt-30">
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-1.png') }}" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-2.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-3.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-4.png') }}" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-5.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-6.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-7.png') }}" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-8.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-9.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-1.png') }}" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-2.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="{{ asset('img/product/product-sm-3.png') }}" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-		</div>
-
+            @include('layouts.includes.trandingProducts')
 
             @include('layouts.includes.browsinghistory')
 
-
-    </section>
-	<!--================ end related Product area =================-->
+    <!--================ end related Product area =================-->
 
 
 
 @endsection
 
 @section('end')
+    <script type="text/javascript">
+        var moreCommentsUrl = '{{action("ItemController@moreComments", isset($item->id) ? $item->id : 0)}}';
+        var moreAnswersUrl = '{{action("ItemController@moreAnswers", $item->id)}}';
+        var moreReviewsUrl = '{{action("ItemController@moreReviews", isset($item->id) ? $item->id : 0)}}';
+
+        var userId = '@if(isset($user->id)) "&userId=" {{$user->id}} @endif';
+
+        var cartAddUrl = '{{action("UserController@cartAdd")}}';
+        var cartRemoveUrl = '{{action("UserController@cartRemoveWithoutCount")}}';
+        var likesAddUrl = '{{action("UserController@likesAdd")}}';
+        var likesRemoveUrl = '{{action("UserController@likesRemove")}}';
+    </script>
     <script src="{{ asset('vendors/jquery/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendors/skrollr.min.js') }}"></script>
@@ -739,105 +593,8 @@
     <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
     <script src="{{ asset('vendors/mail-script.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-  <script type="text/javascript">
-      function cartAdd (itemId) {
-
-          $.ajax({
-              url: '{{action("UserController@cartAdd")}}' + '?itemId=' + itemId,
-              type: 'GET',
-
-              success: function (response) {
-
-                  $(".cartAddButton" + itemId).attr('hidden', true);
-                  $(".cartRemoveButton" + itemId).attr('hidden', false);
-                    console.log(itemId);
-              }
-          })
-
-
-      }
-      function cartRemove (itemId) {
-
-          $.ajax({
-              url: '{{action("UserController@cartRemoveWithoutCount")}}' + '?itemId=' + itemId,
-              type: 'GET',
-
-              success: function (response) {
-
-                  $(".cartAddButton" + itemId).attr('hidden', false);
-                  $(".cartRemoveButton" + itemId).attr('hidden', true);
-
-              }
-          })
-
-      }
-      function likesAdd (itemId) {
-
-          $.ajax({
-              url: '{{action("UserController@likesAdd")}}' + '?itemId=' + itemId,
-              type: 'GET',
-
-              success: function (response) {
-
-                  $(".likeAddButton" + itemId).attr('hidden', true);
-                  $(".likeRemoveButton" + itemId).attr('hidden', false);
-
-              }
-          })
-
-      }
-      function likesRemove (itemId) {
-
-          $.ajax({
-              url: '{{action("UserController@likesRemove")}}' + '?itemId=' + itemId,
-              type: 'GET',
-
-              success: function (response) {
-
-                  $(".likeAddButton" + itemId).attr('hidden', false);
-                  $(".likeRemoveButton" + itemId).attr('hidden', true);
-
-              }
-          })
-
-      }
-
-      function moreComments(commentId, button) {
-          $.ajax({
-              url: '{{action("ItemController@moreComments", isset($item->id) ? $item->id : 0)}}' + '?commentId=' + commentId @if(isset($user->id)) + '&userId=' + {{$user->id}} @endif,
-              type: 'GET',
-              datatype: 'html',
-              success: function (comments) {
-                  button.insertAdjacentHTML('beforebegin', comments);
-                  button.remove();
-              }
-          });
-      }
-
-      function moreAnswers(answerId, commentId, button) {
-          $.ajax({
-              url: '{{action("ItemController@moreAnswers", $item->id)}}' + '?commentId=' + commentId + '&answerId=' + answerId,
-              type: 'GET',
-              datatype: 'html',
-              success: function (answers) {
-                  button.insertAdjacentHTML('beforebegin', answers);
-                  button.remove();
-              }
-          });
-      }
-
-      function moreReviews(reviewId, button) {
-          $.ajax({
-              url: '{{action("ItemController@moreReviews", isset($item->id) ? $item->id : 0)}}' + '?reviewId=' + reviewId @if(isset($user->id)) + '&userId=' + {{$user->id}} @endif,
-              type: 'GET',
-              datatype: 'html',
-              success: function (reviews) {
-                  button.insertAdjacentHTML('beforebegin', reviews);
-                  button.remove();
-              }
-          });
-      }
-  </script>
+    <script src="{{ asset('js/ajaxCartLikes.js') }}"></script>
+    <script src="{{ asset('js/item.js') }}"></script>
 
 </body>
 </html>

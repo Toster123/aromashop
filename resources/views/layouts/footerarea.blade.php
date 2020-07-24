@@ -2,8 +2,8 @@
 <section class="subscribe-position">
     <div class="container">
         <div class="subscribe text-center">
-            <h3 class="subscribe__title">Get Update From Anywhere</h3>
-            <p>Bearing Void gathering light light his eavening unto dont afraid</p>
+            <h3 class="subscribe__title">{{__('links.get_update_from_anywhere')}}</h3>
+            <p>{{__('links.get_update_text')}}</p>
             <div id="mc_embed_signup">
                 <form target="_blank" action="" method="post" class="subscribe-form form-inline mt-5 pt-1">
                     <div class="form-group ml-sm-auto">
@@ -28,59 +28,49 @@
             <div class="row section_gap">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-footer-widget tp_widgets">
-                        <h4 class="footer_title large_title">Our Mission</h4>
+                        <h4 class="footer_title large_title">{{__('links.our_mission')}}</h4>
                         <p>
-                            So seed seed green that winged cattle in. Gathering thing made fly you're no
-                            divided deep moved us lan Gathering thing us land years living.
-                        </p>
-                        <p>
-                            So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved
+                            {{__('links.our_mission_content')}}
                         </p>
                     </div>
                 </div>
                 <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
                     <div class="single-footer-widget tp_widgets">
-                        <h4 class="footer_title">Quick Links</h4>
+                        <h4 class="footer_title">{{__('links.main_links')}}</h4>
                         <ul class="list">
-                            <li><a href="{{ route('/') }}">Home</a></li>
-                            <li><a href="{{ route('store') }}">Store</a></li>
-                            <li><a href="{{ route('contact') }}">Contact</a></li>
-                            <li><a href="{{ route('register') }}">Signup</a></li>
-                            <li><a href="{{ route('login') }}">Signin</a></li>
-                            <li><a href="{{ route('tracking') }}">Tracking</a></li>
-                            <li><a href="{{ route('cart') }}">Cart</a></li>
+                            <li><a href="{{ route('/') }}">{{__('links.home')}}</a></li>
+                            <li><a href="{{ route('store') }}">{{__('links.store')}}</a></li>
+                            <li><a href="{{ route('contact') }}">{{__('links.contacts')}}</a></li>
+                            <li><a href="{{ route('cart') }}">{{__('links.cart')}}</a></li>
+                            <li><a href="{{ route('likes') }}">{{__('links.likes')}}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-6">
                     <div class="single-footer-widget instafeed">
-                        <h4 class="footer_title">Gallery</h4>
+                        <h4 class="footer_title">{{__('links.trending_products')}}</h4>
                         <ul class="list instafeed d-flex flex-wrap">
-                            <li><img src="{{ asset('img/gallery/r1.jpg') }}" alt=""></li>
-                            <li><img src="{{ asset('img/gallery/r2.jpg') }}" alt=""></li>
-                            <li><img src="{{ asset('img/gallery/r3.jpg') }}" alt=""></li>
-                            <li><img src="{{ asset('img/gallery/r5.jpg') }}" alt=""></li>
-                            <li><img src="{{ asset('img/gallery/r7.jpg') }}" alt=""></li>
-                            <li><img src="{{ asset('img/gallery/r8.jpg') }}" alt=""></li>
+                            @foreach($footerTrandingItems as $item)
+                                <li><a href="{{ route('item', $item->id) }}"><img src="{{ asset($item->img_href) }}" height="70px" width="70px" alt=""></a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
                 <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
                     <div class="single-footer-widget tp_widgets">
-                        <h4 class="footer_title">Contact Us</h4>
+                        <h4 class="footer_title">{{__('links.contact_us')}}</h4>
                         <div class="ml-40">
                             <p class="sm-head">
                                 <span class="fa fa-location-arrow"></span>
-                                Head Office
+                                {{__('links.head_office')}}
                             </p>
-                            <p>123, Main Street, Your City</p>
+                            <p>{{__('links.head_office_address')}}</p>
 
                             <p class="sm-head">
                                 <span class="fa fa-phone"></span>
-                                Phone Number
+                                {{__('links.phone_number')}}
                             </p>
                             <p>
-                                +123 456 7890 <br>
                                 +123 456 7890
                             </p>
 
@@ -89,8 +79,7 @@
                                 Email
                             </p>
                             <p>
-                                free@infoexample.com <br>
-                                www.infoexample.com
+                                free@infoexample.com
                             </p>
                         </div>
                     </div>

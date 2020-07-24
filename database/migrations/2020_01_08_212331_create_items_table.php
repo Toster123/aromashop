@@ -24,7 +24,7 @@ class CreateItemsTable extends Migration
             $table->integer('quantity')->default(0);
             $table->integer('purchases');
             $table->integer('discount');
-            $table->string('img_href')->nullable();
+            $table->string('img_href')->default('storage/errors/item_no_img.png');
             $table->timestamps();
         });
     }

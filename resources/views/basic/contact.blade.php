@@ -48,30 +48,38 @@
     <div class="container">
       <div class="d-none d-sm-block mb-5 pb-4">
         <div id="map" style="height: 420px;"></div>
+          <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=8e751eaa-3cde-40ef-aeb1-95f10c32be9f" type="text/javascript"></script>
         <script>
-          function initMap() {
-            var uluru = {lat: -25.363, lng: 131.044};
-            var grayStyles = [
-              {
-                featureType: "all",
-                stylers: [
-                  { saturation: -90 },
-                  { lightness: 50 }
-                ]
-              },
-              {elementType: 'labels.text.fill', stylers: [{color: '#A3A3A3'}]}
-            ];
-            var map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: -31.197, lng: 150.744},
-              zoom: 9,
-              styles: grayStyles,
-              scrollwheel:  false
+            ymaps.ready(function () {
+                var myMap = new ymaps.Map('map', {
+                        center: [55.751574, 37.583856],
+                        zoom: 9
+                    }, {
+                        searchControlProvider: 'yandex#search'
+                    }),
+
+                    // Создаём макет содержимого.
+                    MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                        '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                    ),
+
+                    myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+                        hintContent: 'Head Office'
+                    }, {
+                        // Опции.
+                        // Необходимо указать данный тип макета.
+                        iconLayout: 'default#image',
+                        // Смещение левого верхнего угла иконки относительно
+                        // её "ножки" (точки привязки).
+                        iconImageOffset: [-5, -38]
+                    });
+
+
+
+                myMap.geoObjects
+                    .add(myPlacemark);
             });
-          }
-
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap"></script>
-
       </div>
 
 

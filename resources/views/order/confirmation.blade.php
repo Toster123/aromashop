@@ -31,7 +31,7 @@
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>Order Confirmation</h1>
+					<h1>{{__('links.confirmation')}}</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{route('/')}}">{{__('links.home')}}</a></li>

@@ -18,7 +18,7 @@ img{ max-width:100%;}
 .srch_bar {
     display: inline-block;
     text-align: right;
-    width: 60%; padding:
+    width: 60%;
 }
 .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
@@ -165,5 +165,15 @@ img{ max-width:100%;}
     background: #728fe8;
     border-bottom-left-radius: 3px;
 }
-body {
+
+div.media div.d-flex img {
+    height: 70px;
+    border-radius: 50%;
+}
+.cart-item-image {
+    padding-right: 30px;
+}
+
+span.last {
+    height: 0;
 }
