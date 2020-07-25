@@ -23,7 +23,7 @@ $factory->define(Item::class, function (Faker $faker) {
     return [
         'title' => $faker->name,
         'price' => rand(0, 10000),
-        'description' => $faker->text,
+        'description' => $faker->text(190),
         'category_id' => Category::orderByRaw('RAND()')->first()->id,
         'brand_id' => Brand::orderByRaw('RAND()')->first()->id,
         'color_id' => Color::orderByRaw('RAND()')->first()->id,

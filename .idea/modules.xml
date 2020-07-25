@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/aromashop.iml" filepath="$PROJECT_DIR$/.idea/aromashop.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/masha_workspace/Диплом/DISK/SportFit/localhost/public/.idea/public.iml" filepath="$USER_HOME$/Downloads/masha_workspace/Диплом/DISK/SportFit/localhost/public/.idea/public.iml" />
       <module fileurl="file://$PROJECT_DIR$/../masha/database/seeds/.idea/seeds.iml" filepath="$PROJECT_DIR$/../masha/database/seeds/.idea/seeds.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/masha_workspace/Диплом/DISK/SportFit/localhost/storage/app/public/uploads/.idea/uploads.iml" filepath="$USER_HOME$/Downloads/masha_workspace/Диплом/DISK/SportFit/localhost/storage/app/public/uploads/.idea/uploads.iml" />
     </modules>
   </component>
 </project>

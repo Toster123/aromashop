@@ -97,5 +97,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="seeds" />
+    <orderEntry type="module" module-name="public" />
+    <orderEntry type="module" module-name="uploads" />
   </component>
 </module>
